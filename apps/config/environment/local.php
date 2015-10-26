@@ -5,8 +5,8 @@ return new \Phalcon\Config(array(
         'default' => array(
             'adapter' => 'Mysql',
             'host' => 'localhost',
-            'username' => 'root',
-            'password' => '', //password
+            'username' => 'mysql_user',
+            'password' => 'password',
             'dbname' => 'eagle',
             'charset' => 'utf8',
         ),
@@ -18,13 +18,13 @@ return new \Phalcon\Config(array(
     ),
 
     'template' => [
-        'layouts' => '../../common/ace/views/layouts/',
+        'layouts' => '../../../views/ace/views/layouts/',
         'partials' => [
-            'active' => '../../common/ace/views/partials/active',
-            'add' => '../../common/ace/views/partials/add',
-            'edit' => '../../common/ace/views/partials/edit',
+            'active' => '../../../views/ace/views/partials/active',
+            'add' => '../../../views/ace/views/partials/add',
+            'edit' => '../../../views/ace/views/partials/edit',
         ],
-        'main' => '../../common/ace/views/index',
+        'main' => '../../../views/ace/views/index',
     ]
 
 ));

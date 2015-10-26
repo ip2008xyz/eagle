@@ -24,20 +24,4 @@ return [
         'group' => 'Auth',
         'version' => 0.1,
     ],
-    'menus' => [
-        'priority' => 101,
-        'name' => 'Menus',
-        'description' => 'The menus module',
-        'namespace' => '\Eagle\Menus',
-        'group' => 'Menus',
-        'version' => 0.1,
-    ],
-    'routes' => [
-        'priority' => 102,
-        'name' => 'Routes',
-        'description' => 'The routing module',
-        'namespace' => '\Eagle\Routes',
-        'group' => 'Routes',
-        'version' => 0.1,
-    ],
 ]; 

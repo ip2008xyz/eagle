@@ -48,7 +48,7 @@ $di->setShared('url', function () use ($config) {
  * Setting up the view component
  */
 $di->setShared('view', function () use ($config) {
-    prdie('view');
+
     $view = new View();
     $view->setViewsDir($config->application->viewsDir);
 
@@ -69,6 +69,7 @@ $di->setShared('view', function () use ($config) {
 
     return $view;
 });
+
 
 
 $di->set('profiler', function () {

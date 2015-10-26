@@ -2,7 +2,7 @@
 
 use Phalcon\Mvc\Application;
 
-error_reporting(E_ALL);
+define('APPLICATION_ENV', getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production');
 
 define("START_TIME", microtime(true));
 
@@ -20,7 +20,7 @@ define('CACHE_DIR', DATA_DIR . '/cache');
 
 /**
  * TODO move everything to object, because ..... DAAAAHHHHH
- * Maybe EagleCms :)
+ * Maybe EagleCMS :)
  */
 
 try {
@@ -29,7 +29,7 @@ try {
     /**
      * Load all the required files
      */
-    require_once CONFIG_PATH .'/required_files.php';
+    require_once CONFIG_PATH . '/required_files.php';
 
 
     /**
@@ -50,12 +50,10 @@ try {
     echo $application->handle()->getContent();
 
 
-
 } catch (Exception $e) {
     dump($e);
     echo $e->getMessage();
 } finally {
-
     require CONFIG_PATH . '/profiler.php';
 }
 

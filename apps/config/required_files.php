@@ -8,10 +8,13 @@ require_once CONFIG_PATH . '/debug.php';
 
 /**
  * Read the configuration for the front end module
- * TODO make variable to load the env file base based on the server
+ * TODO make env to inherit from production.php
  */
+if(!is_file(CONFIG_PATH . '/environment/' . APPLICATION_ENV . '.php')) {
+    throw new \Exception('Config file not found');
+}
 
-$config = require_once CONFIG_PATH . "/environment/production.php";
+$config = require_once CONFIG_PATH . '/environment/' . APPLICATION_ENV . '.php';
 
 
 

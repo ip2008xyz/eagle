@@ -135,7 +135,7 @@ class Modules
         //phalcon migration --action=run --config="\config\migration.php" --migrations="\apps\auth\migrations --version=1.0.0"
         //phalcon migration --action=run --config="\config\migration.php" --migrations="\apps\auth\migrations --version=1.0.2"
 
-        $modules_installed = include APP_PATH . "/config/modules.php";
+        $modules_installed = include APPS_PATH . "/config/modules.php";
 
         foreach ($modules as $module_key) {
 
@@ -152,7 +152,7 @@ class Modules
             //first we run the migrations
             if (is_dir(APPS_PATH . '/' . $module_key . '/migrations')) {
 
-                $command = 'cd ' . APP_PATH . ' & phalcon migration '
+                $command = 'cd ' . APPS_PATH . ' & phalcon migration '
                     . '--action=run '
                     . '--config="/config/migration.php" '
                     . '--migrations="/apps/' . $module_key . '/migrations"';
@@ -215,9 +215,10 @@ class Modules
 
             uasort($modules_installed, array('Eagle\Core\Models\Modules','sortByPriority'));
 
-            copy(APP_PATH . '/config/modules.php', $this->_cache_dir . '/' . microtime(true) . ".{$type}.modules.php");
+            copy(APPS_PATH . '/config/modules.php', $this->_cache_dir . '/' . microtime(true) . ".{$type}.modules.php");
 
-            $this->writeArray($modules_installed, APP_PATH . '/config/modules.php');
+            $this->writeArray($modules_installed, APPS_PATH . '/config/modules.php');
+
             Debug::info("Overwrite modules.php");
 
         }
