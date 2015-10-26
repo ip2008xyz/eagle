@@ -1,0 +1,10 @@
+<div class="row">
+    <?php $this->partial($this->config->template->partials->add,
+        array(
+            'url' => '/menus/index/add',
+        )
+    ); ?>
+</div>
+<?php foreach ($menus as $menu):
+    echo $this->partial('index/menu', ['menus' => $menu]);
+endforeach;

@@ -1,0 +1,57 @@
+<?php
+/**
+ * @var Phalcon\Mvc\View\Engine\Php $this
+ */
+$to_url = '#';
+
+if (!isset($id)) {
+    $id = 0;
+}
+
+if (!isset($url)) {
+    $url = $this->acl->getURL();
+
+}
+$to_url = $url . '/id/' . $id;
+
+if (isset($params)):
+    if (is_array($params)):
+
+        /**
+         * TODO implement a nice string implode here
+         */
+    else:
+        $to_url .= '/' . $params;
+    endif;
+endif;
+
+$to_class = 'ajaxCall';
+if (isset($class)) {
+    $to_class .= $class;
+}
+if (isset($name)):
+    $display_message = $name;
+else:
+    $display_message = 'Edit';
+endif;
+
+$display_icon = 'pencil';
+
+if (isset($icon)):
+
+    $display_icon = $icon;
+
+endif;
+
+
+
+if ($this->acl->isAllowedToURL($to_url)):
+
+    ?>
+
+    <a href="<?php echo $to_url; ?>" class="<?php echo $to_class; ?>">
+        <i class="ace-icon fa fa-<?php echo $display_icon; ?>"></i>
+        <?php echo $display_message; ?>
+
+    </a>
+<?php endif; ?>

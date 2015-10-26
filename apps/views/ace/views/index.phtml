@@ -1,0 +1,43 @@
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+?><!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title><?php echo $title; ?></title>
+    <?php $this->assets->outputCss() ?>
+</head>
+<body class="no-skin">
+<div class="navbar navbar-default" id="navbar">
+
+</div>
+<div class="main-container" id="main-container">
+    <div class="sidebar">
+        <?php echo $view_menu_sidebar; ?>
+    </div>
+    <div class="main-content">
+        <?php echo $this->getContent(); ?>
+    </div>
+</div>
+
+<div id="ajax" class="modal in">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close closeAjax" aria-hidden="true" data-dismiss="modal" type="button">x</button>
+                <h3 style="margin:0;">&nbsp;</h3>
+            </div>
+            <div id="innerAjax" class="modal-body"></div>
+            <div class="modal-footer">
+                <span id="help_ajax" style='float:left'></span>
+                <button class="close closeAjax" aria-hidden="true" data-dismiss="modal" type="button">x</button>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $this->assets->outputJs(); ?>
+
+</body>
+</html>

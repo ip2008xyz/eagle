@@ -1,0 +1,78 @@
+<?php
+/**
+ * @var Phalcon\Mvc\View\Engine\Php $this
+ */
+$to_url = '#';
+if (!isset($id)) {
+    $id = 0;
+}
+
+if (!isset($url)) {
+    $url = $this->acl->getURL();
+
+}
+$to_url = $url . '/id/' . $id;
+
+
+$is_checked = '';
+$message = "NO";
+
+$def_color = 'grey';
+if (isset($val) && $val):
+    $is_checked = 'checked="checked"';
+    $message = "YES";
+    $def_color = 'green';
+endif;
+
+if (isset($name)):
+    $display_name = $name;
+else:
+    $display_name = md5($to_url);
+endif;
+
+$def_type = null;
+if (isset($type) && $type === 'icon'):
+    $def_type = 'icon';
+endif;
+
+if ($this->acl->isAllowedToURL($to_url)) {
+
+    if ($def_type === 'icon') {
+
+        ?>
+
+        <a href="<?php echo $to_url; ?>" class="ajaxCall" data-element="gritter">
+            <i class="ace-icon fa fa-eye <?php echo $def_color; ?>"></i>
+        </a>
+
+        <?php
+    } else {
+
+        ?>
+
+        <label>
+            <input name="<?php echo $display_name; ?>"
+                   data-href="<?php echo $to_url; ?>"
+                   data-element="gritter"
+                   class="ace ace-switch ace-switch-7 ajaxCall"
+                   type="checkbox" <?php echo $is_checked; ?>/>
+            <span class="lbl"></span>
+        </label>
+        <?php
+    }
+} else {
+    if ($def_type === 'icon'):
+
+        ?>
+
+
+            <i class="ace-icon fa fa-eye-slash <?php echo $def_color; ?>"></i>
+
+        <?php
+    else:
+
+        ?>
+        <span><?php echo $message; ?></span>
+        <?php
+    endif;
+}

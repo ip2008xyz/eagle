@@ -1,0 +1,65 @@
+<ol class="dd-list">
+    <?php
+
+    foreach ($menus as $menu):
+
+        ?>
+        <li class="dd-item dd2-item" data-id="<?php echo $menu['menu_id']; ?>">
+            <div class="dd-handle dd2-handle">
+                <i class="normal-icon ace-icon fa fa-comments blue bigger-130"></i>
+                <i class="drag-icon ace-icon fa fa-arrows bigger-125"></i>
+            </div>
+            <div class="dd2-content">
+                <?php echo $menu['menu_name']; ?>
+
+                <small class="orange"><?php echo $menu['menu_permission']; ?></small>
+                <small class="green"><?php echo $menu['menu_link']; ?></small>
+                <div class="pull-right action-buttons">
+                    <?php $this->partial($this->config->template->partials->edit,
+                        array(
+                            'url' => '/menus/index/edit',
+                            'id' => $menu['menu_id'],
+                            'name' => '',
+                        )
+                    );
+
+                    $this->partial($this->config->template->partials->active,
+                        array(
+                            'url' => '/menus/index/live',
+                            'id' => $menu['menu_id'],
+                            'type' => 'icon',
+                            'val' => $menu['menu_active'],
+
+                        )
+                    );
+
+                    $this->partial($this->config->template->partials->edit,
+                        array(
+                            'url' => '/menus/index/add',
+                            'params' => 'type/same/pid/' . $menu['menu_id'],
+                            'name' => '',
+                            'icon' => 'arrow-right purple',
+
+                        )
+                    );
+                    $this->partial($this->config->template->partials->edit,
+                        [
+                            'url' => '/menus/index/add',
+                            'params' => 'type/under/pid/' . $menu['menu_id'],
+                            'name' => '',
+                            'icon' => 'arrow-down orange',
+
+                        ]
+                    ); ?>
+
+                </div>
+
+
+            </div>
+
+            <?php if (isset($menu['submenu']) && count($menu['submenu']) > 0): ?>
+                <?php echo $this->partial('index/nested', ['menus' => $menu['submenu']]); ?>
+            <?php endif; ?>
+        </li>
+    <?php endforeach; ?>
+</ol>

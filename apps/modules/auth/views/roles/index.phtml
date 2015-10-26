@@ -1,0 +1,43 @@
+<?php $this->partial($this->config->template->partials->add,
+    array(
+        'url' => '/auth/roles/add',
+    )
+); ?>
+
+<table class="table table-striped table-bordered table-hover">
+    <tr>
+        <th>ID</th>
+        <th>Role</th>
+        <th>Active</th>
+        <th>&nbsp;</th>
+    </tr>
+
+    <?php foreach ($roles as $role): ?>
+        <tr>
+            <td><?php echo $role->role_id; ?></td>
+            <td><?php echo $role->role_name; ?></td>
+            <td>
+                <?php $this->partial($this->config->template->partials->active,
+                        array(
+                            'url' => '/auth/roles/live',
+                            'id' => $role->role_id,
+                            'val' => $role->role_active,
+                        )
+                    ); ?>
+                <?php //echo $role->role_active; ?>
+            </td>
+
+            <td>
+                <?php $this->partial($this->config->template->partials->edit,
+                    array(
+                        'url' => '/auth/roles/edit',
+                        'id' => $role->role_id,
+                   )
+                ); ?>
+                <?php //echo $role->role_active; ?>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+
+</table>
+
