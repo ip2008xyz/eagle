@@ -2,7 +2,7 @@
 
 namespace Eagle\Index\Controllers;
 
-use Phalcon\Mvc\Controller;
+use Eagle\Core\Controllers\ControllerBase as Controller;
 
 class ControllerBase extends Controller
 {
