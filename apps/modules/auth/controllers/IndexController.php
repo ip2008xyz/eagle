@@ -29,7 +29,7 @@ class IndexController extends ControllerBase
         // And some local JavaScript resources
         $this->assets
             ->addJs('assets/js/jquery.js')
-            ->addJs('js/bootstrap.min.js');
+            ->addJs('assets/js/bootstrap.js');
     }
 
 

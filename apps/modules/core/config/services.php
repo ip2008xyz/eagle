@@ -1,19 +1,13 @@
 <?php
 
 
-
-
+use Phalcon\Db\Profiler as DbProfiler;
+use Phalcon\Events\Manager as EventsManager;
 use Phalcon\Mvc\Router;
 use Phalcon\Mvc\Url as UrlResolver;
-use Phalcon\Session\Adapter\Files as SessionAdapter;
-use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Mvc\View;
 use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
-use Phalcon\Events\Manager as EventsManager;
-use Phalcon\Db\Profiler as DbProfiler;
-
-
-
+use Phalcon\Session\Adapter\Files as SessionAdapter;
 
 
 /**
@@ -26,6 +20,8 @@ $di->setShared('router', function () {
     $router->setDefaultModule('index');
 
     $router->setDefaultNamespace('Eagle\Index\Controllers');
+
+    //$router->notFound(['module' => 'index', 'controller' => 'index', 'action' => 'page404']);
 
     return $router;
 
@@ -69,7 +65,6 @@ $di->setShared('view', function () use ($config) {
 
     return $view;
 });
-
 
 
 $di->set('profiler', function () {
@@ -166,7 +161,24 @@ $di->setShared('dispatcher', function () use ($di) {
 
         // Override parameters
         $dispatcher->setParams($keyParams);
+
     });
+
+    $eventsManager->attach('dispatch:beforeException', function ($event, $dispatcher, $exception) {
+        switch ($exception->getCode()) {
+            case \Phalcon\Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
+            case \Phalcon\Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
+                $dispatcher->forward(array(
+                    'module' => 'index',
+                    'controller' => 'index',
+                    'action' => 'page404',
+                ));
+
+                return false;
+        }
+    });
+
+
     /**
      * TODO - implement dispatch:beforeException
      */

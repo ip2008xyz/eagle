@@ -7,7 +7,18 @@ function profile_mysql_nice_format($query)
     /**
      * TODO must improve this function, c'mon run the replace every time
      */
-    $mysql_words = array('SELECT ', ' WHERE ', ' AND ', ' IF', 'IF(', 'COUNT', 'FROM ', 'DATABASE()', 'DESCRIBE', ' IN ');
+    $mysql_words = array(
+        'SELECT ',
+        ' WHERE ',
+        ' AND ',
+        ' IF',
+        'IF(',
+        'COUNT',
+        'FROM ',
+        'DATABASE()',
+        'DESCRIBE',
+        ' IN '
+    );
 
     $mysql_nice = array();
 
@@ -45,7 +56,9 @@ try {
     Debug::write_error(number_format(microtime(true) - START_TIME, 4, '.', '') . 's', 'TIME');
     Debug::write_success($_POST, 'POST');
     Debug::write_success($_GET, 'GET');
-    Debug::write_success($_SESSION, 'SESSION');
+    if (isset($_SESSION)) {
+        Debug::write_success($_SESSION, 'SESSION');
+    }
     Debug::write_success($_COOKIE, 'COOKIE');
 
     register_shutdown_function('app_shutdown');
