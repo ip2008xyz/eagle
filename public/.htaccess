@@ -1,5 +1,8 @@
 AddDefaultCharset UTF-8
 
+SetEnvIf Host ^(.*)eagle.zo APPLICATION_ENV=devel
+SetEnvIf Host ^(.*)eagle.oz APPLICATION_ENV=local
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteCond %{REQUEST_FILENAME} !-d
