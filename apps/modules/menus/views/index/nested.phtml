@@ -15,7 +15,7 @@
                 <small class="orange"><?php echo $menu['menu_permission']; ?></small>
                 <small class="green"><?php echo $menu['menu_link']; ?></small>
                 <div class="pull-right action-buttons">
-                    <?php $this->partial($this->config->template->partials->edit,
+                    <?php $this->partial($this->config->template->admin->partials->edit,
                         array(
                             'url' => '/menus/index/edit',
                             'id' => $menu['menu_id'],
@@ -23,7 +23,7 @@
                         )
                     );
 
-                    $this->partial($this->config->template->partials->active,
+                    $this->partial($this->config->template->admin->partials->active,
                         array(
                             'url' => '/menus/index/live',
                             'id' => $menu['menu_id'],
@@ -33,7 +33,7 @@
                         )
                     );
 
-                    $this->partial($this->config->template->partials->edit,
+                    $this->partial($this->config->template->admin->partials->edit,
                         array(
                             'url' => '/menus/index/add',
                             'params' => 'type/same/pid/' . $menu['menu_id'],
@@ -42,7 +42,7 @@
 
                         )
                     );
-                    $this->partial($this->config->template->partials->edit,
+                    $this->partial($this->config->template->admin->partials->edit,
                         [
                             'url' => '/menus/index/add',
                             'params' => 'type/under/pid/' . $menu['menu_id'],

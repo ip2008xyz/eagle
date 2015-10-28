@@ -13,10 +13,10 @@ class ControllerBase extends PhController
 
         $this->view->view_menu_sidebar = '';
 
-        $this->view->setLayoutsDir($this->config->template->layouts);
+        $this->view->setLayoutsDir($this->config->template->admin->layouts);
         $this->view->setLayout('index');
 
-        $this->view->setMainView($this->config->template->main);
+        $this->view->setMainView($this->config->template->admin->main);
 
         $this->view->setLayout('index');
 
@@ -47,7 +47,6 @@ class ControllerBase extends PhController
             //change level layout to ajax
             $this->view->setLayout('ajax');
 
-            //$this->view->disableLevel(View::LEVEL_LAYOUT);
         }
     }
 }

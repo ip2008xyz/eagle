@@ -36,10 +36,6 @@ class Module implements ModuleDefinitionInterface
      */
     public function registerServices(DiInterface $di)
     {
-        /**
-         * Read configuration
-         */
-        $config = include MODULES_PATH . "/index/config/config.php";
 
         /**
          * Setting up the view component
@@ -51,11 +47,6 @@ class Module implements ModuleDefinitionInterface
             return $view;
         };
 
-        /**
-         * Database connection is created based in the parameters defined in the configuration file
-         */
-        $di['db'] = function () use ($config) {
-            return new DbAdapter($config->toArray());
-        };
+
     }
 }

@@ -11,6 +11,7 @@ return new \Phalcon\Config(array(
             'charset' => 'utf8',
         ),
     ),
+
     'application' => array(
         'app_name' => 'Eagle - The power of Phalcon',
         'baseUri' => '/',

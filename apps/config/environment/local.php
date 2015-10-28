@@ -1,6 +1,6 @@
 <?php
 
-return new \Phalcon\Config(array(
+return (array(
     'database' => array(
         'default' => array(
             'adapter' => 'Mysql',
@@ -11,20 +11,28 @@ return new \Phalcon\Config(array(
             'charset' => 'utf8',
         ),
     ),
-    'application' => array(
-        'app_name' => 'Eagle - The power of Phalcon',
-        'baseUri' => '/',
-        'page_404' => '/index/index/page404',
-    ),
 
     'template' => [
-        'layouts' => '../../../views/ace/views/layouts/',
-        'partials' => [
-            'active' => '../../../views/ace/views/partials/active',
-            'add' => '../../../views/ace/views/partials/add',
-            'edit' => '../../../views/ace/views/partials/edit',
+        'admin' => [
+            'name' => 'Ace',
+            'layouts' => '../../../views/ace/views/layouts/',
+            'partials' => [
+                'active' => '../../../views/ace/views/partials/active',
+                'add' => '../../../views/ace/views/partials/add',
+                'edit' => '../../../views/ace/views/partials/edit',
+            ],
+            'main' => '../../../views/ace/views/index',
         ],
-        'main' => '../../../views/ace/views/index',
+        'front' => [
+            'name' => 'Bootstrap',
+            'layouts' => '../../../views/bootstrap/views/layouts/',
+            'partials' => [
+                'active' => '../../../views/bootstrap/views/partials/active',
+                'add' => '../../../views/bootstrap/views/partials/add',
+                'edit' => '../../../views/bootstrap/views/partials/edit',
+            ],
+            'main' => '../../../views/bootstrap/views/index',
+        ]
     ]
 
 ));

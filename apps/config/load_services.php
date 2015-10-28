@@ -17,6 +17,7 @@ $di = new FactoryDefault();
 /**
  * Register the config
  */
+
 $di->set('config', $config);
 
 
@@ -29,12 +30,11 @@ $di->set('modules', (object) $modules);
  * Load all services for the installed modules
  */
 
-foreach($modules as $module_key => $module) {
+foreach ($modules as $module_key => $module) {
 
     $service_file_path = MODULES_PATH . '/' . $module_key . '/config/services.php';
 
-    if(is_file($service_file_path)) {
-
+    if (is_file($service_file_path)) {
 
         require_once $service_file_path;
     }

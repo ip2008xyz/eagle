@@ -65,7 +65,7 @@ try {
     set_error_handler('app_error_handler');
     set_exception_handler('app_exception_handler');
 
-    /*$included_files = get_included_files();
+    $included_files = get_included_files();
 
     Debug::write_success(count($included_files), "FILES");
     $i = 0;

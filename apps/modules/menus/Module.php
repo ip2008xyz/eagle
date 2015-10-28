@@ -37,14 +37,6 @@ class Module implements ModuleDefinitionInterface
      */
     public function registerServices(DiInterface $di)
     {
-        $config = $di->get('config');
-
-        /**
-         * Read configuration
-         */
-        $local_config = include MODULES_PATH . "/menus/config/config.php";
-        $config->merge($local_config);
-        $config = $di->get('config');
 
         /**
          * Setting up the view component

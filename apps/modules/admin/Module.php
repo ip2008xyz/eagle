@@ -38,11 +38,6 @@ class Module implements ModuleDefinitionInterface
     {
 
         /**
-         * Read configuration
-         */
-        $config = include APP_PATH . "/apps/admin/config/config.php";
-
-        /**
          * Setting up the view component
          */
         $di['view'] = function () {
@@ -52,11 +47,5 @@ class Module implements ModuleDefinitionInterface
             return $view;
         };
 
-        /**
-         * Database connection is created based in the parameters defined in the configuration file
-         */
-        $di['db'] = function () use ($config) {
-            return new DbAdapter($config->toArray());
-        };
     }
 }

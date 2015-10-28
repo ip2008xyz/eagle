@@ -18,13 +18,26 @@ return new \Phalcon\Config(array(
     ),
 
     'template' => [
-        'layouts' => '../../../views/ace/views/layouts/',
-        'partials' => [
-            'active' => '../../../views/ace/views/partials/active',
-            'add' => '../../../views/ace/views/partials/add',
-            'edit' => '../../../views/ace/views/partials/edit',
+        'admin' => [
+            'name' => 'Ace',
+            'layouts' => '../../../views/ace/views/layouts/',
+            'partials' => [
+                'active' => '../../../views/ace/views/partials/active',
+                'add' => '../../../views/ace/views/partials/add',
+                'edit' => '../../../views/ace/views/partials/edit',
+            ],
+            'main' => '../../../views/ace/views/index',
         ],
-        'main' => '../../../views/ace/views/index',
+        'front' => [
+            'name' => 'Bootstrap',
+            'layouts' => '../../../views/ace/views/layouts/',
+            'partials' => [
+                'active' => '../../../views/ace/views/partials/active',
+                'add' => '../../../views/ace/views/partials/add',
+                'edit' => '../../../views/ace/views/partials/edit',
+            ],
+            'main' => '../../../views/ace/views/index',
+        ]
     ]
 
 ));

@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title><?php echo $title; ?></title>
+    <title>THEME DEMO :: <?php echo $title; ?></title>
     <?php $this->assets->outputCss() ?>
 </head>
 <body class="no-skin">
@@ -26,7 +26,7 @@
         /**
          * TODO find a way to get the path from real path
          */
-        $this->partial('../../menus/views/partials/admin_menu', ['menus' => $obj_menu->getMenus('Admin')]);
+        $this->partial('../../menus/views/partials/admin_menu', ['menus' => $obj_menu->getMenus('Front')]);
 
 
         ?>

@@ -40,7 +40,7 @@ try {
     /**
      * Include modules
      */
-    require CONFIG_PATH . '/register_modules.php';
+    require CONFIG_PATH . '/load_modules.php';
 
     /**
      * Include routes
