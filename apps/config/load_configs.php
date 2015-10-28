@@ -16,6 +16,7 @@ if(!is_file(CONFIG_PATH . '/environment/' . APPLICATION_ENV . '.php')) {
 }
 
 $config = require_once CONFIG_PATH . '/environment/' . APPLICATION_ENV . '.php';
+$config = new Config($config);
 
 foreach($modules as $module_key => $module) {
 
@@ -24,10 +25,12 @@ foreach($modules as $module_key => $module) {
     if(is_file($config_file_path)) {
 
         $local_config = require_once $config_file_path;
-        $config = array_merge($config, $local_config);
+
+        $local_config = new Config($local_config);
+        $config->merge($local_config);
+
 
     }
 }
 
-$config = new Config($config);
 

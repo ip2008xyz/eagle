@@ -8,6 +8,7 @@ return [
     'description' => 'Do not disable this module',
     'namespace' => '\Eagle\Core',
     'group' => 'Core',
-    'version' => 0.1
+    'version' => 0.1,
+    'require' => null,
 
 ];

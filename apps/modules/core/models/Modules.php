@@ -134,6 +134,7 @@ class Modules
         //phalcon migration --action=run --config="\config\miration.php" --migrations="\apps\auth\migrations"
         //phalcon migration --action=run --config="\config\migration.php" --migrations="\apps\auth\migrations --version=1.0.0"
         //phalcon migration --action=run --config="\config\migration.php" --migrations="\apps\auth\migrations --version=1.0.2"
+        //phalcon migration --action=generate --config="\apps\config\migration.php" --migrations="\apps\modules\menus\migrations" --table=menus
 
         $modules_installed = include APPS_PATH . "/config/modules.php";
 

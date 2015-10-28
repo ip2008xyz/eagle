@@ -6,9 +6,9 @@ use Phalcon\Db\Reference;
 use Phalcon\Mvc\Model\Migration;
 
 /**
- * Class PermissionsMigration_100
+ * Class MenusMigration_100
  */
-class PermissionsMigration_100 extends Migration
+class MenusMigration_100 extends Migration
 {
     /**
      * Define the table structure
@@ -27,7 +27,7 @@ class PermissionsMigration_100 extends Migration
      */
     public function up()
     {
-        self::$_connection->dropTable('permissions');
+        self::$_connection->dropTable('menus');
 
     }
 
@@ -38,7 +38,7 @@ class PermissionsMigration_100 extends Migration
      */
     public function down()
     {
-        self::$_connection->dropTable('permissions');
+        self::$_connection->dropTable('menus');
     }
 
 }

@@ -8,6 +8,6 @@ return [
     'description' => 'Do not disable this module',
     'namespace' => '\Eagle\Index',
     'group' => 'Core',
-    'version' => 0.1
+    'version' => 0.1,
 
 ];
