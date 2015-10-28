@@ -27,6 +27,7 @@ class MenusMigration_100 extends Migration
      */
     public function up()
     {
+        dump(__LINE__);
         self::$_connection->dropTable('menus');
 
     }
@@ -38,6 +39,7 @@ class MenusMigration_100 extends Migration
      */
     public function down()
     {
+        dump(__LINE__);
         self::$_connection->dropTable('menus');
     }
 

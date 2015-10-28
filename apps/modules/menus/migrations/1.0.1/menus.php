@@ -141,6 +141,14 @@ class MenusMigration_101 extends Migration
     public function up()
     {
         self::$_connection->insert("menus", array(1, 'Admin', '(Root)', 1, 0, '#', 'index_index_index', NULL, 1, 'desktop'));
+        self::$_connection->insert("menus", array(2, 'Admin', 'Install', 2, 0, '/core/install', '*_*_*', 1, 1, 'wrench'));
+        self::$_connection->insert("menus", array(3, 'Admin', 'Menus', 2, 1, '/menus', 'menus_*_*', 1, 1, 'cog'));
+        self::$_connection->insert("menus", array(4, 'Admin', 'Roles', 2, 2, '/auth/roles', 'auth_*_*', 1, 1, 'users'));
+        self::$_connection->insert("menus", array(5, 'Front', 'Home', 1, 0, '/', 'index_*_*', NULL, 1, 'home'));
+        self::$_connection->insert("menus", array(6, 'Admin', 'Exit', 0, 3, '/auth/index/exit', 'auth_index_exit', 1, 1, 'sign-out'));
+        self::$_connection->insert("menus", array(7, 'Front', 'Auth', 1, 0, '/auth', 'auth_index_index', 5, 1, 'sign-in'));
+        self::$_connection->insert("menus", array(8, 'Front', 'Contact', 1, 2, '/contact', 'index_index_*', 5, 1, 'envelope'));
+        self::$_connection->insert("menus", array(9, 'Front', 'Install', 2, 1, '/core/install', 'core_install_*', 5, 1, 'wrench'));
 
     }
 
@@ -151,7 +159,8 @@ class MenusMigration_101 extends Migration
      */
     public function down()
     {
-
+        dump(__LINE__);
+        self::$_connection->dropTable('menus');
     }
 
 }

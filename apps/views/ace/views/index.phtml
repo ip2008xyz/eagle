@@ -16,7 +16,7 @@
 <div class="main-container" id="main-container">
     <div class="sidebar">
         <?php
-
+        if(class_exists('\Eagle\Menus\Models\Menus')):
         /**
          * TODO replace this with the route of finding out the real menu
          */
@@ -28,7 +28,7 @@
          */
         $this->partial('../../menus/views/partials/admin_menu', ['menus' => $obj_menu->getMenus('Admin')]);
 
-
+        endif;
         ?>
     </div>
     <div class="main-content">

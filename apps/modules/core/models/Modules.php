@@ -7,7 +7,9 @@ class Modules
 {
     protected $_modules = array();
     protected $_modules_path = MODULES_PATH;
-
+    /**
+     * TODO put every paths into config variables
+     */
     protected $_cache_dir = CACHE_DIR;
 
     private static $instance;
@@ -89,7 +91,7 @@ class Modules
 
         if (empty($this->_modules || $force === true)) {
             $this->_modules = $this->scanModulesDir();
-            $installed_modules = (array)\Phalcon\DI::getDefault()->get('modules');
+            $installed_modules = (array) \Phalcon\DI::getDefault()->get('modules');
 
 
             foreach ($this->_modules as $module_key => $module) {
@@ -151,12 +153,12 @@ class Modules
 
 
             //first we run the migrations
-            if (is_dir(APPS_PATH . '/' . $module_key . '/migrations')) {
+            if (is_dir(MODULES_PATH . '/' . $module_key . '/migrations')) {
 
-                $command = 'cd ' . APPS_PATH . ' & phalcon migration '
+                $command = 'cd ' . APP_PATH . ' & phalcon migration '
                     . '--action=run '
-                    . '--config="/config/migration.php" '
-                    . '--migrations="/apps/' . $module_key . '/migrations"';
+                    . '--config="/apps/config/migration.php" '
+                    . '--migrations="/apps/modules/' . $module_key . '/migrations"';
 
                 if($action === 'uninstall') {
                     $command .= ' --version=1.0.0';
@@ -164,16 +166,18 @@ class Modules
                 } else {
                     Debug::info("Run migration to latest for: " . $module_key);
                 }
-                $answer = exec($command, $response);
+                $response = ''; $vars = '';
+                $answer = exec($command, $response, $vars);
+                dump($command, $answer, $response, $vars);
                 /**
                  * TODO display the answer in log mode
                  */
                 //prdie($commnad, $answer,  $response);
             }
 
-            if (is_file(APPS_PATH . '/' . $module_key . '/config/install.php')) {
+            if (is_file(MODULES_PATH . '/' . $module_key . '/config/install.php')) {
 
-                include_once APPS_PATH . '/' . $module_key . '/config/install.php';
+                include_once MODULES_PATH . '/' . $module_key . '/config/install.php';
                 $method_name = "{$module_key}_{$action}";
 
                 if (function_exists($method_name)) {
