@@ -1,0 +1,8 @@
+<?php $menu = current($menus); ?>
+
+<div class="col-sm-6">
+    <label><?php echo $menu['menu_group']; ?></label>
+    <div class="dd nested" id="nested_<?php echo $menu['menu_group']; ?>" data-href="/menus/index/order" data-href="">
+        <?php echo $this->partial('index/nested', ['menus' => $menus]); ?>
+    </div>
+</div>

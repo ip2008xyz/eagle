@@ -151,9 +151,16 @@ class Modules
                 unset($modules_installed[$module_key]['key']);
             }
 
-
             //first we run the migrations
             if (is_dir(MODULES_PATH . '/' . $module_key . '/migrations')) {
+
+                $local_migration_file = APP_PATH . '/.phalcon/' . $module_key . '-migration-version';
+
+                if(!is_file($local_migration_file)) {
+                    file_put_contents($local_migration_file, '1.0.0');
+                }
+
+                copy($local_migration_file, APP_PATH . '/.phalcon/migration-version');
 
                 $command = 'cd ' . APP_PATH . ' & phalcon migration '
                     . '--action=run '
@@ -161,14 +168,17 @@ class Modules
                     . '--migrations="/apps/modules/' . $module_key . '/migrations"';
 
                 if($action === 'uninstall') {
-                    $command .= ' --version=1.0.0';
+                    $command .= ' --version=0';
                     Debug::info("Run migration to 1.0.0 for: " . $module_key);
                 } else {
                     Debug::info("Run migration to latest for: " . $module_key);
                 }
-                $response = ''; $vars = '';
-                $answer = exec($command, $response, $vars);
-                dump($command, $answer, $response, $vars);
+                $response = '';
+                Debug::warning($command);
+                exec($command, $response);
+                Debug::status($response);
+                copy(APP_PATH . '/.phalcon/migration-version', $local_migration_file);
+
                 /**
                  * TODO display the answer in log mode
                  */

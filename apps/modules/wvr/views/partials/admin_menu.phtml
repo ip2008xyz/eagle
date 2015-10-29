@@ -1,0 +1,47 @@
+<?php
+/**
+ * TODO - duplicate the parent that has a submenu and add a href for it
+ */
+$is_submenu = false;
+
+if (isset($submenu) && $submenu === true):
+    $is_submenu = true;
+endif;
+
+$ul_class = 'submenu';
+if ($is_submenu === false):
+    $ul_class = 'nav nav-list';
+endif;
+
+
+?>
+<ul class="<?php echo $ul_class; ?>">
+    <?php
+
+    foreach ($menus as $menu):
+        $a_class = '';
+        $has_submenu = false;
+
+        if (isset($menu['submenu']) && count($menu['submenu']) > 0):
+            $has_submenu = true;
+            $a_class = 'dropdown-toggle';
+        endif;
+        ?>
+
+        <li class="">
+            <a href="<?php echo $menu['menu_link']; ?>" class="<?php echo $a_class; ?>">
+                <i class="menu-icon fa fa-<?php echo $menu['menu_icon']; ?>"></i>
+                <span class="menu-text"> <?php echo $menu['menu_name']; ?> </span>
+                <?php if ($has_submenu === true): ?>
+                    <b class="arrow fa fa-angle-down"></b>
+                <?php endif; ?>
+            </a>
+
+            <b class="arrow"></b>
+
+            <?php if ($has_submenu === true):
+                $this->partial('../../menus/views/partials/admin_menu', ['menus' => $menu['submenu'], 'submenu' => true]);
+            endif; ?>
+        </li>
+    <?php endforeach; ?>
+</ul>

@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 use Phalcon\Db\Column;
 use Phalcon\Db\Index;
@@ -6,9 +6,9 @@ use Phalcon\Db\Reference;
 use Phalcon\Mvc\Model\Migration;
 
 /**
- * Class MenusMigration_100
+ * Class UnitsMigration_100
  */
-class MenusMigration_100 extends Migration
+class UnitsMigration_100 extends Migration
 {
     /**
      * Define the table structure
@@ -17,7 +17,7 @@ class MenusMigration_100 extends Migration
      */
     public function morph()
     {
-        self::$_connection->dropTable('menus');
+
     }
 
     /**
@@ -27,9 +27,7 @@ class MenusMigration_100 extends Migration
      */
     public function up()
     {
-        self::$_connection->dropTable('menus');
-
-
+        self::$_connection->dropTable('units');
     }
 
     /**
@@ -39,9 +37,7 @@ class MenusMigration_100 extends Migration
      */
     public function down()
     {
-
-        self::$_connection->dropTable('menus');
+        self::$_connection->dropTable('units');
     }
 
 }
-

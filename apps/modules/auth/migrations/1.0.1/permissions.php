@@ -99,5 +99,8 @@ class PermissionsMigration_101 extends Migration
         self::$_connection->dropTable('permissions');
     }
 
+
+
+
 }
 

@@ -1,10 +1,10 @@
 <?php
 
 
-function auth_install() {
+function menus_install() {
 
 }
 
-function auth_uninstall() {
+function menus_uninstall() {
 
 }
