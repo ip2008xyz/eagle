@@ -35,16 +35,15 @@ return [
             '0' => 'auth',
         ],
     ],
-    'wvr' => [
-        'priority' => 102,
-        'name' => 'Wvr',
-        'description' => 'The WVR module',
-        'namespace' => '\Eagle\Wvr',
-        'group' => 'Content',
+    'themes' => [
+        'priority' => 103,
+        'name' => 'Themes',
+        'description' => 'The theming modules',
+        'namespace' => '\Eagle\Themes',
+        'group' => 'Themes',
         'version' => 0.1,
         'require' => [
-            '0' => 'auth',
-            '1' => 'menus',
+
         ],
     ],
 ]; 

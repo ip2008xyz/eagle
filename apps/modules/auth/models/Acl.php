@@ -68,7 +68,7 @@ class Acl extends Component
 
 
     public function extendedIsAllowed($access) {
-        
+
         if (isset($this->_permissions['*_*_*'])) {
             return self::ALLOW;
         } elseif (isset($this->_permissions[$access])) {

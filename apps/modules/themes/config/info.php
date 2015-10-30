@@ -8,6 +8,7 @@ return [
     'description' => 'The theming modules',
     'namespace' => '\Eagle\Themes',
     'group' => 'Themes',
-    'version' => 0.1
+    'version' => 0.1,
+    'require' => [],
 
 ];

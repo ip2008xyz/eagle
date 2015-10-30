@@ -2,6 +2,7 @@
 namespace Eagle\Core\Models;
 
 use Eagle\Core\Services\Debug;
+use Phalcon\DI;
 
 class Modules
 {
@@ -191,7 +192,7 @@ class Modules
 
                 if (function_exists($method_name)) {
 
-                    call_user_func($method_name);
+                    call_user_func($method_name, DI::getDefault());
                     Debug::info("Run {$method_name}()");
                 }
 

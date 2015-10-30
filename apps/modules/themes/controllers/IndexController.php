@@ -9,6 +9,12 @@ use Eagle\Core\Services\Message;
 class IndexController extends ControllerBase
 {
 
+    public function indexAction() {
+        try {
 
+        } catch(\Exception $e) {
+            Message::exception($e);
+        }
+    }
 }
 
