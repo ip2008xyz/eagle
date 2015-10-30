@@ -1,6 +1,7 @@
 <?php
 namespace Eagle\Menus\Models;
 
+use Eagle\Auth\Models\Acl;
 use Phalcon\Mvc\Model;
 
 class Menus extends Model
@@ -51,7 +52,7 @@ class Menus extends Model
         $menus = array();
 
         foreach ($tmp_groups as $group) {
-            $menus[$group->menu_group] = $group->getMenus($group->menu_group);
+            $menus[$group->menu_group] = $group->getMenus($group->menu_group, false);
 
         }
 
@@ -77,7 +78,7 @@ class Menus extends Model
      * Get a multidimension array of the menu for a group or for current pid
      * @return array
      */
-    public function getMenus($menu_group = null)
+    public function getMenus($menu_group = null, $check_access = true)
     {
 
 
@@ -104,8 +105,22 @@ class Menus extends Model
         if ($menus) {
             $tmp_menus = array();
             foreach ($menus as $menu) {
-                $tmp_menus[$menu->menu_id] = $menu->toArray();
-                $tmp_menus[$menu->menu_id]['submenu'] = $menu->getMenus();
+
+                $tmp_menu_with_access = $menu->toArray();
+
+                if($check_access === true) {
+
+                    if($this->di->get('acl')->extendedIsAllowed($tmp_menu_with_access['menu_permission'])) {
+                        $tmp_menus[$menu->menu_id] = $tmp_menu_with_access;
+                        $tmp_menus[$menu->menu_id]['submenu'] = $menu->getMenus(null, $check_access);
+                    }
+
+                } else {
+                    $tmp_menus[$menu->menu_id] = $tmp_menu_with_access;
+                    $tmp_menus[$menu->menu_id]['submenu'] = $menu->getMenus(null, $check_access);
+                }
+
+
 
 
             }

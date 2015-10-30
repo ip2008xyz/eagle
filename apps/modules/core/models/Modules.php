@@ -65,7 +65,6 @@ class Modules
 
         }
 
-
         $this->installModules($to_uninstall, 'uninstall');
         $this->installModules($to_install);
 

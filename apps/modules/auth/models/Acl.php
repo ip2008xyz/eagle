@@ -66,8 +66,42 @@ class Acl extends Component
         return $this->isAllowed($url[0], $url[1], $url[2]);
     }
 
+
+    public function extendedIsAllowed($access) {
+        
+        if (isset($this->_permissions['*_*_*'])) {
+            return self::ALLOW;
+        } elseif (isset($this->_permissions[$access])) {
+            return self::ALLOW;
+        } elseif($access === '*_*_*') {
+            return self::ALLOW;
+        } else {
+            $regexp_access = '@^' . str_ireplace('*', '.*', $access) . '$@';
+
+            foreach($this->_permissions as $key => $value) {
+
+                if(preg_match($regexp_access, $key)) {
+                    return self::ALLOW;
+                }
+            }
+        }
+
+
+
+        return self::DENY;
+    }
+
+
     public function isAllowed($module = 'index', $controller = 'index', $action = 'index')
     {
+
+        if(stripos($module, '_') !== FALSE) {
+            //all is in module
+            $tmp = explode('_', $module);
+            $module = trim($tmp[0]);
+            $controller = trim($tmp[1]);
+            $action = trim($tmp[2]);
+        }
 
         if (isset($this->_permissions["{$module}_{$controller}_{$action}"])) {
             return self::ALLOW;
