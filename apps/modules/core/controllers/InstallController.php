@@ -26,7 +26,19 @@ class InstallController extends ControllerBase
 
     public function indexAction()
     {
+
+        $response = '';
+        $var = null;
+
+        exec('phalcon', $response, $var);
+
+        Debug::status($response);
+        Debug::status($var);
+
         try {
+            /**
+             * TODO - have a better idea here, do not need to reduplicate everything
+             */
             $form = new Install();
 
             if ($this->request->isPost() && $form->isValid($this->request->getPost())) {
@@ -38,6 +50,7 @@ class InstallController extends ControllerBase
                 }
 
             }
+            $form = new Install();
 
             $this->view->form = $form;
 

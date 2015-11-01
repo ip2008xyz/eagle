@@ -16,18 +16,18 @@
 <div class="main-container" id="main-container">
     <div class="sidebar">
         <?php
+        if (class_exists('\Eagle\Menus\Models\Menus')):
+            /**
+             * TODO replace this with the route of finding out the real menu
+             */
+            $obj_menu = new \Eagle\Menus\Models\Menus();
 
-        /**
-         * TODO replace this with the route of finding out the real menu
-         */
-        $obj_menu = new \Eagle\Menus\Models\Menus();
 
-
-        /**
-         * TODO find a way to get the path from real path
-         */
-        $this->partial('../../menus/views/partials/admin_menu', ['menus' => $obj_menu->getMenus('Front')]);
-
+            /**
+             * TODO find a way to get the path from real path
+             */
+            $this->partial('../../menus/views/partials/admin_menu', ['menus' => $obj_menu->getMenus('Front')]);
+        endif;
 
         ?>
     </div>

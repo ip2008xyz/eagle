@@ -28,7 +28,6 @@ class PermissionsMigration_100 extends Migration
     public function up()
     {
         self::$_connection->dropTable('permissions');
-
     }
 
     /**

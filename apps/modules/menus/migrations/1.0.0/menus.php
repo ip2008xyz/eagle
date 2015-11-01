@@ -17,7 +17,7 @@ class MenusMigration_100 extends Migration
      */
     public function morph()
     {
-        self::$_connection->dropTable('menus');
+
     }
 
     /**

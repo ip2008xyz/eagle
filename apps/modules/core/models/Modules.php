@@ -138,7 +138,7 @@ class Modules
         //phalcon migration --action=run --config="\config\migration.php" --migrations="\apps\auth\migrations --version=1.0.2"
         //phalcon migration --action=generate --config="\apps\config\migration.php" --migrations="\apps\modules\menus\migrations" --table=menus
 
-        $modules_installed = include APPS_PATH . "/config/modules.php";
+        $modules_installed = include APPS_PATH . '/config/modules.php';
 
         foreach ($modules as $module_key) {
 
@@ -157,26 +157,31 @@ class Modules
                 $local_migration_file = APP_PATH . '/.phalcon/' . $module_key . '-migration-version';
 
                 if(!is_file($local_migration_file)) {
-                    file_put_contents($local_migration_file, '1.0.0');
+                    file_put_contents($local_migration_file, '0');
                 }
 
                 copy($local_migration_file, APP_PATH . '/.phalcon/migration-version');
 
-                $command = 'cd ' . APP_PATH . ' & phalcon migration '
-                    . '--action=run '
-                    . '--config="/apps/config/migration.php" '
-                    . '--migrations="/apps/modules/' . $module_key . '/migrations"';
+                $command = 'cd ' . APP_PATH . ' & phalcon migration'
+                    . ' --action=run'
+                    . ' --config="/apps/config/migrations/' . strtolower(APPLICATION_ENV) . '.php"'
+                    . ' --migrations="/apps/modules/' . $module_key . '/migrations/"';
 
                 if($action === 'uninstall') {
-                    $command .= ' --version=0';
+                    $command .= ' --version=1.0.0';
                     Debug::info("Run migration to 1.0.0 for: " . $module_key);
                 } else {
                     Debug::info("Run migration to latest for: " . $module_key);
                 }
                 $response = '';
+                $var = null;
                 Debug::warning($command);
-                exec($command, $response);
+
+                exec($command, $response, $var);
+
                 Debug::status($response);
+                Debug::status($var);
+
                 copy(APP_PATH . '/.phalcon/migration-version', $local_migration_file);
 
                 /**
@@ -230,7 +235,7 @@ class Modules
 
             uasort($modules_installed, array('Eagle\Core\Models\Modules','sortByPriority'));
 
-            copy(APPS_PATH . '/config/modules.php', $this->_cache_dir . '/' . microtime(true) . ".{$type}.modules.php");
+            copy(APPS_PATH . '/config/modules.php', $this->_cache_dir . '/' .date('Ymd_His_') . substr(microtime(true), -4). ".{$type}.modules.log");
 
             $this->writeArray($modules_installed, APPS_PATH . '/config/modules.php');
 

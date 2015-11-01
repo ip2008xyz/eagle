@@ -1,6 +1,6 @@
 <?php
 
-use \Phalcon\Config;
+use Phalcon\Config;
 
 if(!isset($modules)) {
     throw new \Exception('Missing modules');
