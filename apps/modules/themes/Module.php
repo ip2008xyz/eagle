@@ -1,6 +1,6 @@
 <?php
 
-namespace Eagle\Routes;
+namespace Eagle\Themes;
 
 use Phalcon\DiInterface;
 use Phalcon\Loader;
@@ -22,9 +22,9 @@ class Module implements ModuleDefinitionInterface
         $loader = new Loader();
 
         $loader->registerNamespaces(array(
-            'Eagle\Routes\Controllers' => __DIR__ . '/controllers/',
-            'Eagle\Routes\Models' => __DIR__ . '/models/',
-            'Eagle\Routes\Forms' => __DIR__ . '/forms/',
+            'Eagle\Themes\Controllers' => __DIR__ . '/controllers/',
+            'Eagle\Themes\Models' => __DIR__ . '/models/',
+            'Eagle\Themes\Forms' => __DIR__ . '/forms/',
         ));
 
         $loader->register();

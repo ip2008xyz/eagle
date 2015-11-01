@@ -4,13 +4,10 @@ namespace Eagle\Core\Controllers;
 
 use Eagle\Core\Forms\Install;
 use Eagle\Core\Models\Modules;
-use Eagle\Core\Services\Debug;
 use Eagle\Core\Services\Message;
 
 class InstallController extends ControllerBase
 {
-
-
 
 
     public function initialize()
@@ -22,18 +19,9 @@ class InstallController extends ControllerBase
     }
 
 
-
-
     public function indexAction()
     {
 
-        $response = '';
-        $var = null;
-
-        exec('phalcon', $response, $var);
-
-        Debug::status($response);
-        Debug::status($var);
 
         try {
             /**
@@ -45,7 +33,7 @@ class InstallController extends ControllerBase
 
                 $install = Modules::getInstance();
 
-                if($install->updateModules($form->getValues())) {
+                if ($install->updateModules($form->getValues())) {
                     Message::success("Modules updates");
                 }
 

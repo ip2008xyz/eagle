@@ -1,9 +1,11 @@
 <?php
 
-namespace Eagle\Routes\Controllers;
+namespace Eagle\Themes\Controllers;
 
-use Eagle\Auth\Forms\Login;
+
 use Eagle\Core\Services\Message;
+
+use Eagle\Themes\Models\Theme;
 
 
 class IndexController extends ControllerBase
@@ -11,6 +13,8 @@ class IndexController extends ControllerBase
 
     public function indexAction() {
         try {
+            $obj_theme = new Theme();
+            $this->view->themes = $obj_theme->getAll();
 
         } catch(\Exception $e) {
             Message::exception($e);

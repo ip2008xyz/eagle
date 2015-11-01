@@ -1,6 +1,6 @@
 <?php
 
-namespace Eagle\Routes\Controllers;
+namespace Eagle\Themes\Controllers;
 
 use Eagle\Core\Controllers\ControllerBase as BaseCoreController;
 
