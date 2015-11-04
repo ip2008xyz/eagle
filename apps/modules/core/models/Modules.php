@@ -161,8 +161,8 @@ class Modules
                 }
 
                 copy($local_migration_file, APP_PATH . '/.phalcon/migration-version');
-
-                $command = 'cd ' . APP_PATH . ' & phalcon migration'
+                //chdir(APP_PATH);
+                $command = 'cd ' . APP_PATH . ' & ' . 'phalcon migration'
                     . ' --action=run'
                     . ' --config="/apps/config/migrations/' . strtolower(APPLICATION_ENV) . '.php"'
                     . ' --migrations="/apps/modules/' . $module_key . '/migrations/"';

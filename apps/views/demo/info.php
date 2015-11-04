@@ -1,5 +1,5 @@
 <?php
 return [
-    'name' => 'bootstrap',
+    'name' => 'demo',
     'version' => 0.1,
 ];

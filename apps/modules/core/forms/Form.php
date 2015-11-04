@@ -6,12 +6,12 @@ use Eagle\Core\Services\Debug;
 use Phalcon\Annotations\Exception;
 use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Submit;
-use Phalcon\Forms\Form as PhForm;
+use Phalcon\Forms\Form as PhalconForm;
 use Phalcon\Filter;
 use Phalcon\Validation\Message;
 
 
-class Form extends PhForm
+class Form extends PhalconForm
 {
     protected $_method = 'POST';
     protected $_view = null;
@@ -189,7 +189,9 @@ class Form extends PhForm
             return implode(' ', $string_to_return);
         } catch (\Exception $e) {
             Debug::exception($e, true);
+
         }
+        return '';
 
     }
 
