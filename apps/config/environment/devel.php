@@ -14,24 +14,24 @@ return (array(
 
     'template' => [
         'admin' => [
-            'name' => 'Ace',
-            'layouts' => '../../../views/ace/views/layouts/',
+            'name' => ADMIN_THEME,
+            'layouts' => '../../../views/' . ADMIN_THEME . '/views/layouts/',
             'partials' => [
-                'active' => '../../../views/ace/views/partials/active',
-                'add' => '../../../views/ace/views/partials/add',
-                'edit' => '../../../views/ace/views/partials/edit',
+                'active' => '../../../views/' . ADMIN_THEME . '/views/partials/active',
+                'add' => '../../../views/' . ADMIN_THEME . '/views/partials/add',
+                'edit' => '../../../views/' . ADMIN_THEME . '/views/partials/edit',
             ],
-            'main' => '../../../views/ace/views/index',
+            'main' => '../../../views/' . ADMIN_THEME . '/views/index',
         ],
         'front' => [
-            'name' => 'Bootstrap',
-            'layouts' => '../../../views/bootstrap/views/layouts/',
+            'name' => FRONT_THEME,
+            'layouts' => '../../../views/' . FRONT_THEME . '/views/layouts/',
             'partials' => [
-                'active' => '../../../views/bootstrap/views/partials/active',
-                'add' => '../../../views/bootstrap/views/partials/add',
-                'edit' => '../../../views/bootstrap/views/partials/edit',
+                'active' => '../../../views/' . FRONT_THEME . '/views/partials/active',
+                'add' => '../../../views/' . FRONT_THEME . '/views/partials/add',
+                'edit' => '../../../views/' . FRONT_THEME . '/views/partials/edit',
             ],
-            'main' => '../../../views/bootstrap/views/index',
+            'main' => '../../../views/' . FRONT_THEME . '/views/index',
         ]
     ]
 

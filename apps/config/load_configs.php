@@ -8,6 +8,17 @@ if(!isset($modules)) {
 
 
 /**
+ * first load the files that can be overwriten by the user
+ *TODO - have a better ideea
+ *
+*/
+if(!is_file(DATA_DIR . '/config/config.inc')) {
+    require_once DATA_DIR . '/config/config.inc';
+} else {
+    require_once DATA_DIR . '/config/config.php';
+}
+
+/**
  * Read the configuration for the front end module
  * TODO make env to inherit from production.php
  */
@@ -16,6 +27,7 @@ if(!is_file(CONFIG_PATH . '/environment/' . APPLICATION_ENV . '.php')) {
 }
 
 $config = require_once CONFIG_PATH . '/environment/' . APPLICATION_ENV . '.php';
+
 $config = new Config($config);
 
 foreach($modules as $module_key => $module) {

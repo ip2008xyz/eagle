@@ -127,8 +127,12 @@ class PermissionsMigration_101 extends Migration
             ),
             'indexes' => array(
                 new Index('PRIMARY', array('permission_id')),
-                new Index('permission_data', array('permission_mca')),
+                //new Index('permission_data', array('permission_mca')),
                 new Index('permission_active', array('permission_active'))
+            ),
+            'unique' => array(
+                new Index('permission_mca', array('permission_mca')),
+
             ),
             'options' => array(
                 'TABLE_TYPE' => 'BASE TABLE',

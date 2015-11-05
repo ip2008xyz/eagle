@@ -109,8 +109,12 @@ class RolesMigration_101 extends Migration
             ),
             'indexes' => array(
                 new Index('PRIMARY', array('role_id')),
-                new Index('role_name', array('role_name')),
+                //new Index('role_name', array('role_name')),
                 new Index('role_active', array('role_active'))
+            ),
+            'unique' => array(
+                new Index('role_name', array('role_name')),
+
             ),
             'options' => array(
                 'TABLE_TYPE' => 'BASE TABLE',
