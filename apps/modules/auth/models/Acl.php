@@ -61,6 +61,7 @@ class Acl extends Component
 
 
     public function isAllowedToURL($url) {
+
         $url = ltrim($url, '/');
         $url = explode('/', $url);
         return $this->isAllowed($url[0], $url[1], $url[2]);
@@ -69,18 +70,20 @@ class Acl extends Component
 
     public function extendedIsAllowed($access) {
 
-        if (isset($this->_permissions['*_*_*'])) {
+        if($access === 'all') {
+
+        } elseif (isset($this->_permissions['*_*_*'])) {
             return self::ALLOW;
         } elseif (isset($this->_permissions[$access])) {
-            return self::ALLOW;
-        } elseif($access === '*_*_*') {
             return self::ALLOW;
         } else {
             $regexp_access = '@^' . str_ireplace('*', '.*', $access) . '$@';
 
             foreach($this->_permissions as $key => $value) {
-
+                $local_regexp = '@^' . str_ireplace('*', '.*', $value) . '$@';
                 if(preg_match($regexp_access, $key)) {
+                    return self::ALLOW;
+                } elseif(preg_match($local_regexp, $access)) {
                     return self::ALLOW;
                 }
             }

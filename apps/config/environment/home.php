@@ -23,6 +23,7 @@ return (array(
             ],
             'main' => '../../../views/ace/views/index',
         ],
+
         'front' => [
             'name' => 'Bootstrap',
             'layouts' => '../../../views/bootstrap/views/layouts/',

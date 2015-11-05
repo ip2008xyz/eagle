@@ -10,6 +10,7 @@ class ControllerBase extends PhController
 
     public function initialize()
     {
+        $this->view->view_title = $this->config->application->app_name;
 
         $this->view->view_menu_sidebar = '';
 
