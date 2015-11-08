@@ -137,6 +137,12 @@ class RolesPermissionsMigration_101 extends Migration
         )
         );
 
+        self::$_connection->query("ALTER TABLE roles_permissions DROP FOREIGN KEY fk_roles_r_p_role_id");
+        self::$_connection->query("ALTER TABLE roles_permissions DROP FOREIGN KEY fk_permissions_r_p_permission_id");
+
+        self::$_connection->query("ALTER TABLE `roles_permissions` ADD  CONSTRAINT `fk_roles_r_p_role_id` FOREIGN KEY (`role_id`) REFERENCES `roles`(`role_id`) ON DELETE CASCADE ON UPDATE CASCADE;");
+        self::$_connection->query("ALTER TABLE `roles_permissions` ADD  CONSTRAINT `fk_permissions_r_p_permission_id` FOREIGN KEY (`permission_id`) REFERENCES `permissions`(`permission_id`) ON DELETE CASCADE ON UPDATE CASCADE;");
+
         self::$_connection->insert("roles_permissions",array(0, 2));
         self::$_connection->insert("roles_permissions",array(1, 1));
         self::$_connection->insert("roles_permissions",array(1, 2));

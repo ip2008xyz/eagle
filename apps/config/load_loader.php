@@ -14,11 +14,7 @@ foreach($modules as $module_key => $module) {
 
         require_once $loader_file_path;
 
-        $module_define = strtoupper($module_key) . '_PATH';
 
-        if(!defined($module_define)) {
-            define($module_define, realpath(MODULES_PATH . '/' . $module_key));
-        }
     }
 }
 

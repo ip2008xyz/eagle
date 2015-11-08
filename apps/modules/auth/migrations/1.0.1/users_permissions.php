@@ -158,6 +158,13 @@ class UsersPermissionsMigration_101 extends Migration
             ),
         )
         );
+        self::$_connection->query("ALTER TABLE `users_permissions` DROP FOREIGN KEY `fk_permissions_u_p_permission_id`;");
+        self::$_connection->query("ALTER TABLE `users_permissions` DROP FOREIGN KEY `fk_users_u_p_user_id`;");
+
+
+        self::$_connection->query("ALTER TABLE `users_permissions` ADD  CONSTRAINT `fk_permissions_u_p_permission_id` FOREIGN KEY (`permission_id`) REFERENCES `permissions`(`permission_id`) ON DELETE CASCADE ON UPDATE CASCADE;");
+        self::$_connection->query("ALTER TABLE `users_permissions` ADD  CONSTRAINT `fk_users_u_p_user_id` FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;");
+
     }
 
     /**

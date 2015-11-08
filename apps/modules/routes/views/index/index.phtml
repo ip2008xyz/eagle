@@ -1,1 +1,47 @@
-I AM THE VIEW
+<table class="table table-striped table-bordered table-hover">
+    <tr>
+        <th class="center">id</th>
+        <th>Name</th>
+        <th>Namespace</th>
+        <th>Module</th>
+        <th>Controller</th>
+        <th>Actions</th>
+        <th>Params</th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+    </tr>
+    <?php foreach ($routes as $route): ?>
+    <tr>
+        <td><?php echo $route['route_id']; ?></td>
+        <td><?php echo $route['route_name']; ?></td>
+        <td><?php echo $route['route_namespace']; ?></td>
+        <td><?php echo $route['route_module']; ?></td>
+        <td><?php echo $route['route_controller']; ?></td>
+        <td><?php echo $route['route_action']; ?></td>
+        <td><?php echo $route['route_params']; ?></td>
+        <td><?php $this->partial($this->config->template->admin->partials->active,
+                array(
+                    'url' => '/routes/index/live',
+                    'id' => $route['route_id'],
+                    'type' => 'icon',
+                    'val' => $route['route_active'],
+
+                )
+            ); ?></td>
+        <td><?php echo $this->partial($this->config->template->admin->partials->edit,
+                array(
+                    'url' => '/routes/index/add',
+                    'params' => 'id/' . $route['route_id'],
+                    'name' => '',
+                    'icon' => 'pencil purple',
+
+                )
+            );; ?></td>
+
+
+
+
+    </tr>
+
+    <?php endforeach; ?>
+</table>

@@ -35,6 +35,14 @@ return [
             '0' => 'auth',
         ],
     ],
+    'routes' => [
+        'priority' => 102,
+        'name' => 'Routes',
+        'description' => 'The routing module',
+        'namespace' => '\Eagle\Routes',
+        'group' => 'Routes',
+        'version' => 0.1,
+    ],
     'themes' => [
         'priority' => 103,
         'name' => 'Themes',

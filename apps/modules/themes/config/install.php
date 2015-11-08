@@ -13,6 +13,8 @@ function themes_install($di = null) {
 
 
 function themes_uninstall($di = null) {
+
     $di->get('db_default')->delete("menus", 'menu_permission = "themes_index_index"');
     $di->get('db_default')->delete("permissions", 'permission_mca = "themes_index_*"');
+
 }

@@ -245,7 +245,20 @@ class MenusMigration_101 extends Migration
                 new Index('PRIMARY', array('menu_id')),
                 new Index('menu_group', array('menu_group')),
                 new Index('menu_level', array('menu_level')),
-                new Index('menu_order', array('menu_order'))
+                new Index('menu_order', array('menu_order')),
+                new Index('fk_menus_m_menu_pid', array('menu_pid'))
+            ),
+            'references' => array(
+                new Reference(
+                    'fk_menus_m_menu_pid',
+                    array(
+                        'referencedSchema' => 'eagle',
+                        'referencedTable' => 'menus',
+                        'columns' => array('menu_pid'),
+                        'referencedColumns' => array('menu_id')
+                    )
+                ),
+
             ),
             'options' => array(
                 'TABLE_TYPE' => 'BASE TABLE',
@@ -255,6 +268,10 @@ class MenusMigration_101 extends Migration
             ),
         )
         );
+
+        self::$_connection->query("ALTER TABLE menus DROP FOREIGN KEY fk_menus_m_menu_pid");
+
+        self::$_connection->query("ALTER TABLE `menus` ADD  CONSTRAINT `fk_menus_m_menu_pid` FOREIGN KEY (`menu_pid`) REFERENCES `menus`(`menu_id`) ON DELETE CASCADE ON UPDATE CASCADE;");
 
         self::$_connection->insert("menus", array(1, 'Admin', '(Root)', 1, 0, '#', 'index_index_index', NULL, 1, 'desktop'));
         self::$_connection->insert("menus", array(2, 'Admin', 'Install', 2, 0, '/core/install', '*_*_*', 1, 1, 'wrench'));

@@ -6,17 +6,30 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title><?php echo $view_title; ?></title>
+    <title><?php echo $title; ?></title>
     <?php $this->assets->outputCss() ?>
 </head>
 <body class="no-skin">
 <div class="navbar navbar-default" id="navbar">
-
+I AM THE VIEW FROM DEMO
 </div>
 <div class="main-container" id="main-container">
     <div class="sidebar">
-        <?php echo $view_sidebar_menu; ?>
+        <?php
+        if (class_exists('\Eagle\Menus\Models\Menus')):
+            /**
+             * TODO replace this with the route of finding out the real menu
+             */
+            $obj_menu = new \Eagle\Menus\Models\Menus();
 
+
+            /**
+             * TODO find a way to get the path from real path
+             */
+            $this->partial('../../menus/views/partials/admin_menu', ['menus' => $obj_menu->getMenus('Front')]);
+        endif;
+
+        ?>
     </div>
     <div class="main-content">
         <?php echo $this->getContent(); ?>

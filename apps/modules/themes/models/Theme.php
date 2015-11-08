@@ -2,26 +2,54 @@
 
 namespace Eagle\Themes\Models;
 
+use Eagle\Core\Models\Config;
+
 class Theme
 {
 
     protected $_theme_path = VIEWS_PATH;
 
+    protected $_themes = null;
+
     public function getAll()
     {
-        $files = scandir($this->_theme_path);
+        if(is_null($this->_themes)) {
+            $this->_themes = array();
 
-        foreach ($files as $k => $v) {
-            if ($v === '.' || $v === '..') {
-                continue;
-            }
-            $file = $this->_theme_path . '/' . $v . '/info.php';
+            $files = scandir($this->_theme_path);
 
-            if (is_file($file)) {
-                $themes[$v] = require_once $file;
+            foreach ($files as $k => $v) {
+                if ($v === '.' || $v === '..') {
+                    continue;
+                }
+                $file = $this->_theme_path . '/' . $v . '/info.php';
+
+                if (is_file($file)) {
+                    $this->_themes[$v] = require_once $file;
+                }
+
             }
 
         }
-        return $themes;
+        return $this->_themes;
+
+    }
+
+    public function storeThemes($input) {
+
+        foreach($input as $theme_name => $theme_status) {
+           if(!isset($this->_themes[$theme_name])) {
+               continue;
+           }
+
+           if($theme_status === 'admin') {
+                Config::writeDefine('ADMIN_THEME', $theme_name);
+           } elseif($theme_status === 'front') {
+               Config::writeDefine('FRONT_THEME', $theme_name);
+           }
+
+        }
+
+
     }
 }

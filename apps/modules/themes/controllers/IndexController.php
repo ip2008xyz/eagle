@@ -13,23 +13,31 @@ class IndexController extends ControllerBase
 
     public function indexAction()
     {
+        $form = null;
+
         try {
 
-            //$obj_theme = new Theme();
 
-            //$this->view->themes = $obj_theme->getAll();
+            $obj_theme = new Theme();
 
             $form = new Themes();
+
+            $form->setThemes($obj_theme->getAll())->createElements();
+
             if ($this->request->isPost() && $form->isValid($this->request->getPost())) {
 
-                prdie($form->getValues());
+
+                $obj_theme->storeThemes($form->getValues());
+                //$input = prdie($form->getValues());
 
             }
-            $this->view->form = $form;
+
 
 
         } catch (\Exception $e) {
             Message::exception($e);
+        } finally {
+            $this->view->form = $form;
         }
     }
     

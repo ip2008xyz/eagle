@@ -27,10 +27,9 @@ try {
 
 
     /**
-     * Load all the required files
+     * Load all the required files, include the config, loaders
      */
     require_once CONFIG_PATH . '/required_files.php';
-
 
     /**
      * Handle the request
