@@ -6,7 +6,7 @@ return (array(
             'adapter' => 'Mysql',
             'host' => 'localhost',
             'username' => 'root',
-            'password' => 'password',
+            'password' => '',
             'dbname' => 'eagle',
             'charset' => 'utf8',
         ),

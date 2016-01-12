@@ -43,6 +43,14 @@ return [
         'group' => 'Routes',
         'version' => 0.1,
     ],
+    'crud' => [
+        'priority' => 103,
+        'name' => 'CRUD',
+        'description' => 'CRUD generator',
+        'namespace' => '\Eagle\Crud',
+        'group' => 'CRUD',
+        'version' => 0.1,
+    ],
     'themes' => [
         'priority' => 103,
         'name' => 'Themes',

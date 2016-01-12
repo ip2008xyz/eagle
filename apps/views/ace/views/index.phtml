@@ -15,7 +15,7 @@
 </div>
 <div class="main-container" id="main-container">
     <div class="sidebar">
-        <?php echo $view_sidebar_menu; ?>
+        <?php echo isset($view_sidebar_menu) ? $view_sidebar_menu : ''; ?>
 
     </div>
     <div class="main-content">

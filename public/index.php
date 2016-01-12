@@ -1,5 +1,7 @@
 <?php
 
+
+
 use Phalcon\Mvc\Application;
 
 define('APPLICATION_ENV', getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production');

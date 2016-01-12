@@ -1,6 +1,6 @@
 <?php
 
-namespace Eagle\Core;
+namespace Eagle\Crud;
 
 use Phalcon\DiInterface;
 use Phalcon\Loader;
@@ -19,8 +19,15 @@ class Module implements ModuleDefinitionInterface
     public function registerAutoloaders(DiInterface $di = null)
     {
 
-        //we do not need to register anything, they are loaded by default in loader.php
+        $loader = new Loader();
 
+        $loader->registerNamespaces(array(
+            'Eagle\Crud\Controllers' => __DIR__ . '/controllers/',
+            'Eagle\Crud\Models' => __DIR__ . '/models/',
+            'Eagle\Crud\Forms' => __DIR__ . '/forms/',
+        ));
+
+        $loader->register();
     }
 
     /**
@@ -41,13 +48,5 @@ class Module implements ModuleDefinitionInterface
             return $view;
         };
 
-        $db = $di->get('config')->database->default->toArray();
-
-        /**
-         * Database connection is created based in the parameters defined in the configuration file
-         */
-        $di['db'] = function () use ($db) {
-            return new DbAdapter($db);
-        };
     }
 }
