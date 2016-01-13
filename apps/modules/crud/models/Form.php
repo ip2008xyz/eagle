@@ -2,120 +2,47 @@
 namespace Eagle\Crud\Models;
 
 
-class Form
+use Eagle\Core\Models\Collection;
+use Eagle\Core\Models\Model;
+
+class Form extends Model
 {
+
     /**
+     * Name of the form
      * @var string
      */
     protected $_name = '';
 
     /**
-     * @var int
-     */
-    protected $_id = 0;
-
-    /**
+     * Main model attached to the form
      * @var string
      */
-    protected $_table = '';
+    protected $_model = '';
 
     /**
-     * @var string
+     * @var Collection of Field
      */
-    protected $_singular = '';
-
-
-    public function __construct($data)
-    {
-        if (is_string($data)) {
-            $data = require_once $data;
-        }
-
-
-        $this->populate($data);
-    }
-
-    private function populate($data = array())
-    {
-
-        foreach ($data as $k => $v) {
-            $method_name = 'set' . ucfirst($k);
-            if (method_exists($this, $method_name)) {
-                $this->$method_name($v);
-            }
-        }
-    }
+    public $_fields = null;
 
 
     /**
-     * @return int
+     * @return Field[]
      */
-    public function getId()
+    public function getFields3()
     {
-        return $this->_id;
+        return $this->_fields;
     }
 
     /**
-     * @param int $id
+     * @param $fields Collection
      * @return Form
      */
-    public function setId($id)
+    public function setFields(Collection $fields)
     {
-        $this->_id = (int)$id;
-        return $this;
-    }
 
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->_name;
-    }
+        $this->_fields = $fields;
 
-    /**
-     * @param string $name
-     * @return Form
-     */
-    public function setName($name)
-    {
-        $this->_name = (string)$name;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSingular()
-    {
-        return $this->_singular;
-    }
-
-    /**
-     * @param string $singular
-     * @return Form
-     */
-    public function setSingular($singular)
-    {
-        $this->_singular = (string)$singular;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTable()
-    {
-        return $this->_table;
-    }
-
-    /**
-     * @param string $table
-     * @return Form
-     */
-    public function setTable($table)
-    {
-        $this->_table = (string)$table;
         return $this;
     }
 

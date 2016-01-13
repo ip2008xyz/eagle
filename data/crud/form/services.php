@@ -3,17 +3,12 @@
 return [
 
     'name' => 'services',
-    'table' => 'services',
-    'singular' => 'service',
-    'access' => 'services_add',
-    'route' => 'services/add',
+    'model' => 'Services',
 
-    'columns' => [
+    'fields' => [
 
         'name' => [
-
             'type' => 'input',
-
             'validators' => [
                 'min' => 3,
                 'max' => 200,

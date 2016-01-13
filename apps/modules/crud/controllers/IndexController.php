@@ -29,7 +29,11 @@ class IndexController extends ControllerBase
         if(is_file($this->config->crud->dir->form . '/' . $file_name . '.php')) {
 
             $obj = new Form($this->config->crud->dir->form . '/' . $file_name . '.php');
-            dump($obj);
+            var_dump($obj->getFields());
+            exit();
+            foreach($obj->getFields() as $v) {
+
+            }
         }
     }
 }

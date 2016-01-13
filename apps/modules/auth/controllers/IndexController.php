@@ -51,6 +51,7 @@ class IndexController extends ControllerBase
                     if ($auth === true) {
                         return $this->response->redirect($this->auth->getAfterLoginUrl())->send();
                     } else {
+
                         Message::error($auth);
                     }
 

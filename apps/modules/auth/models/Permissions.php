@@ -1,9 +1,9 @@
 <?php
 namespace Eagle\Auth\Models;
 
-use Phalcon\Mvc\Model;
+use Eagle\Core\Models\MvcModel;
 
-class Permissions extends Model {
+class Permissions extends MvcModel {
 
 
     public function initialize()

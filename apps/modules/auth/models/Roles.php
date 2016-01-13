@@ -1,12 +1,12 @@
 <?php
 namespace Eagle\Auth\Models;
 
-use Phalcon\Mvc\Model;
+use Eagle\Core\Models\MvcModel;
 use Phalcon\Mvc\Model\Validator\Uniqueness;
 use Phalcon\Mvc\Model\Validator\Inclusionin;
 use Phalcon\Mvc\Model\Validator\Regex;
 
-class Roles extends Model
+class Roles extends MvcModel
 {
 
     const ACTIVE = 1;
@@ -115,7 +115,7 @@ class Roles extends Model
 
         $id = (int)$id;
         if ($id < 0) {
-            throw new \InvalidArgumentException('Id can\'t be negative');
+            throw new \Exception('Id can\'t be negative');
         }
 
         $this->role_id = $id;

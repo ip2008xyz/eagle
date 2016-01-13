@@ -2,7 +2,9 @@
 namespace Eagle\Crud\Models;
 
 
-class Crud
+use Eagle\Core\Models\Model;
+
+class Crud extends Model
 {
 
     protected $_forms = [];

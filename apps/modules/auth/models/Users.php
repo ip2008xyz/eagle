@@ -1,9 +1,9 @@
 <?php
 namespace Eagle\Auth\Models;
 
-use Phalcon\Mvc\Model;
+use Eagle\Core\Models\MvcModel;
 
-class Users extends Model {
+class Users extends MvcModel {
 
     const ACTIVE = 1;
     const INACTIVE = 0;

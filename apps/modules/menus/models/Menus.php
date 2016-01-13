@@ -2,9 +2,9 @@
 namespace Eagle\Menus\Models;
 
 use Eagle\Auth\Models\Acl;
-use Phalcon\Mvc\Model;
+use Eagle\Core\Models\MvcModel;
 
-class Menus extends Model
+class Menus extends MvcModel
 {
 
     const ACTIVE = 1;

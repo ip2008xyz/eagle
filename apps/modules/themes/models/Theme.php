@@ -3,8 +3,9 @@
 namespace Eagle\Themes\Models;
 
 use Eagle\Core\Models\Config;
+use Eagle\Core\Models\Model;
 
-class Theme
+class Theme extends Model
 {
 
     protected $_theme_path = VIEWS_PATH;

@@ -29,7 +29,7 @@ class Auth extends Component {
     public function authUser($credentials)
     {
 
-
+        //prdie($credentials['user_password'], $this->security->hash($credentials['user_password']));
 
         // Check if the user exist
         $user = Users::findFirst(array(

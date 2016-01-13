@@ -2,13 +2,10 @@
 namespace Eagle\Routes\Models;
 
 
-use Phalcon\Mvc\Model;
+use Eagle\Core\Models\MvcModel;
 
-class Routes extends Model
+class Routes extends MvcModel
 {
-
-    const ACTIVE = 1;
-    const INACTIVE = 0;
 
 
     public function initialize()
