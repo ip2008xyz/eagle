@@ -4,6 +4,7 @@ use Phalcon\Db\Column;
 use Phalcon\Db\Index;
 use Phalcon\Db\Reference;
 use Phalcon\Mvc\Model\Migration;
+use Phalcon\Security;
 
 /**
  * Class UsersMigration_101
@@ -179,8 +180,11 @@ class UsersMigration_101 extends Migration
         )
         );
 
+        $security = new Security();
+
+
         self::$_connection->insert("users", array(0, 'guest', 'guest', '', 0, 0));
-        self::$_connection->insert("users", array(1, 'ionut', 'marcel.toma@endava.com', '$2a$08$JcLm1IONh99AlUCnHfuzZukb82QEvFZoFLTEwSYzJr5gb4MjC5PaS', 1, 0));
+        self::$_connection->insert("users", array(1, 'ionut', 'marcel.toma@endava.com', $security->hash('tatim32!@#$'), 1, 0));
 
 
     }
@@ -192,6 +196,7 @@ class UsersMigration_101 extends Migration
      */
     public function down()
     {
+
         self::$_connection->dropTable('users');
     }
 

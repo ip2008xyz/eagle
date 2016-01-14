@@ -1,6 +1,7 @@
 <?php
 
 return (array(
+    'phalcon_command' => '/opt/phalcon-tools/phalcon.php', //path to phalcon.php or phalcon command
     'database' => array(
         'default' => array(
             'adapter' => 'Mysql',

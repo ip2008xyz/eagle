@@ -9,9 +9,9 @@ class Crud extends Model
 
     protected $_forms = [];
 
-    public function getAll($path)
+    public function getAll($project, $path, $type = 'form')
     {
-
+        $path = $path . '/'. $project . "/{$type}";
         $files = scandir($path);
 
         foreach ($files as $k => $v) {

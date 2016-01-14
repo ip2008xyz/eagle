@@ -1,5 +1,5 @@
 <?php
-namespace Eagle\Core\Forms;
+namespace Eagle\Content\Forms;
 
 
 use Eagle\Core\Services\Debug;

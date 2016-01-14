@@ -5,6 +5,7 @@ namespace Eagle\Crud\Controllers;
 use Eagle\Crud\Models\Form;
 use Eagle\Core\Services\Message;
 use Eagle\Crud\Models\Crud;
+use Eagle\Crud\Models\Project;
 
 
 class IndexController extends ControllerBase
@@ -14,10 +15,10 @@ class IndexController extends ControllerBase
     {
         try {
 
-            $crud = new Crud();
-
-            $this->view->crud_files = $crud->getAll($this->config->crud->dir->form);
-
+            $this->view->crud_project = new Project([
+                'path' => $this->config->crud->dir,
+                'name' => 'b2b',
+            ]);
 
 
         } catch (\Exception $e) {
@@ -25,16 +26,16 @@ class IndexController extends ControllerBase
         }
     }
 
-    public function createAction($file_name = '') {
-        if(is_file($this->config->crud->dir->form . '/' . $file_name . '.php')) {
+    public function createAction($project_name = '')
+    {
 
-            $obj = new Form($this->config->crud->dir->form . '/' . $file_name . '.php');
-            var_dump($obj->getFields());
-            exit();
-            foreach($obj->getFields() as $v) {
+        $project = new Project([
+                'path' => $this->config->crud->dir,
+                'name' => $project_name,
+            ]);
 
-            }
-        }
+        $project->load()->create();
+
     }
 }
 

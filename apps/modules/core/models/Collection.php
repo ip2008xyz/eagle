@@ -6,25 +6,33 @@ use Countable;
 use Iterator;
 
 
-class Collection implements Iterator
+class Collection
 {
 
-    protected $items;
-    private $objectName;
-    private $position = 0;
 
     public function __construct($objectName, $items = [])
     {
+
         $this->items = [];
-        foreach($items as $item) {
+
+        foreach($items as $key => $item) {
+
             if($item instanceof  $objectName) {
+
                 $this->items[] = $items;
+
+            } elseif(is_array($item)) {
+
+                $this->items[] = new $objectName($item);
+
             } else {
-                $this->items[] = new $objectName($this->objectName);
+                $item = [$key => $item];
+                $this->items[] = new $objectName($item);
             }
         }
 
         $this->objectName = $objectName;
+
         $this->position = 0;
     }
 

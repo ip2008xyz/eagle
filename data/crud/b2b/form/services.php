@@ -2,6 +2,8 @@
 
 return [
 
+    'objectName' => 'Eagle\Crud\Models\Form',
+
     'name' => 'services',
     'model' => 'Services',
 

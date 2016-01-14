@@ -9,24 +9,20 @@
         <th>Name</th>
         <th>Create</th>
     </tr>
-    <?php
 
-    foreach ($crud_files as $file):
-
-    ?>
         <tr>
-            <td><?php echo $file->getName(); ?></td>
+            <td><?php echo $crud_project->getName(); ?></td>
             <td>
             <?php $this->partial($this->config->template->admin->partials->edit,
                 array(
                     'url' => '/crud/index/create',
-                    'id' => $file->getName(),
-                    'name' => 'Create ' . $file->getName()
+                    'id' => $crud_project->getName(),
+                    'name' => 'Create ' . $crud_project->getName()
                 )
             ); ?>
             </td>
 
         </tr>
-    <?php endforeach; ?>
+
 
 </table>

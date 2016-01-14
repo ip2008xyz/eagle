@@ -140,8 +140,10 @@ class Modules
         //phalcon migration --action=generate --config="\apps\config\migration.php" --migrations="\apps\modules\menus\migrations" --table=menus
 
         $modules_installed = include APPS_PATH . '/config/modules.php';
-        //prdie($modules, $modules_installed);
+
+
         foreach ($modules as $module_key) {
+
 
             Debug::info(ucfirst($action) . " module: {$module_key}", true);
 
@@ -152,6 +154,8 @@ class Modules
                 unset($modules_installed[$module_key]['key']);
             }
 
+
+
             //first we run the migrations
             if (is_dir(MODULES_PATH . '/' . $module_key . '/migrations')) {
 
@@ -159,12 +163,16 @@ class Modules
 
                 if(!is_file($local_migration_file)) {
                     file_put_contents($local_migration_file, '0');
+                    chmod($local_migration_file, 774);
                 }
 
+                //copy the current migration version into the default phalcon migration file
                 copy($local_migration_file, APP_PATH . '/.phalcon/migration-version');
 
+                chdir(APP_PATH); // this is for linux, cd command does not change the dir
 
-                $command = 'cd ' . APP_PATH . ' & ' . 'phalcon migration'
+                $command = 'cd ' . APP_PATH . ' & ' //position on root dir of the project
+                    . \Phalcon\DI::getDefault()->get('config')->phalcon_command . ' migration'
                     . ' --action=run'
                     . ' --config="/apps/config/migrations/' . strtolower(APPLICATION_ENV) . '.php"'
                     . ' --migrations="/apps/modules/' . $module_key . '/migrations/"';
@@ -180,6 +188,8 @@ class Modules
                 } else {
                     Debug::info("Run migration to latest for: " . $module_key);
                 }
+
+
                 $response = '';
                 $var = null;
                 Debug::warning($command);
@@ -190,6 +200,7 @@ class Modules
                 Debug::status($var);
 
                 copy(APP_PATH . '/.phalcon/migration-version', $local_migration_file);
+                chmod($local_migration_file, 774);
 
                 /**
                  * TODO display the answer in log mode
