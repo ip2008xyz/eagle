@@ -15,6 +15,14 @@ class Model {
         }
 
         if(is_array($data)) {
+            //we check if we have the "loadFile" key, this will force the loading of a key
+            if(isset($data['loadFile'])) {
+
+                $tmp = require_once $data['loadFile'];
+                unset($data['loadFile']);
+                prdie($tmp, $data);
+            }
+
             $this->populate($data);
         }
 

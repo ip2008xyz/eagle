@@ -135,7 +135,9 @@ class Project extends Model
         foreach ($this->_instances as $folder) {
             $scan_object = new Scanner([
                 'path' => $this->getCrudPath() . '/' . $folder,
+                'namespace' => $this->_name,
             ]);
+
             $this->_forms = $scan_object->load();
 
         }

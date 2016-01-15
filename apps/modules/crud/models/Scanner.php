@@ -15,6 +15,11 @@ class Scanner extends Model
     /**
      * @var string
      */
+    protected $_namespace = '';
+
+    /**
+     * @var string
+     */
     protected $_objectName = '';
 
     /**
@@ -28,16 +33,17 @@ class Scanner extends Model
     protected $_items = [];
 
 
-    public static function writeToFile($file_name, $content) {
+    public static function writeToFile($file_name, $content)
+    {
 
         //there is no extension to the file
-        if(stripos($file_name, '.') === false) {
-            if(method_exists($content, 'getName')) {
+        if (stripos($file_name, '.') === false) {
+            if (method_exists($content, 'getName')) {
                 $file_name = $file_name . '/' . $content->getName() . '.php';
             }
         }
 
-        if(is_object($content)) {
+        if (is_object($content)) {
             $content = $content->createContent();
         }
 
@@ -84,27 +90,54 @@ class Scanner extends Model
             //check if file exist
             if (is_file($file)) {
 
+                $data = require_once $file;
+
                 //check if we have an object to instantiate
                 if (empty($this->_objectName)) {
 
                     //if we do not, we check the file if it has it's own creation object
-                    $data = require_once $file;
+
 
                     //check if we have the objectname
                     if (!isset($data['objectName'])) {
                         throw new \Exception("The {$file} does not have an objectName");
                     }
+
                     $this->setObjectName($data['objectName']);
                     unset($data['objectName']);
+
                     $file = $data;
                 }
 
-                $this->_items[$key] = new $this->_objectName($file);
+                if (!isset($data['namespace'])) {
+                    $data['namespace'] = $this->getNamespace();
+                }
+
+                $this->_items[$key] = new $this->_objectName($data);
+
             }
 
 
         }
         return $this->_items;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNamespace()
+    {
+        return $this->_namespace;
+    }
+
+    /**
+     * @param string $namespace
+     * @return Scanner
+     */
+    public function setNamespace($namespace)
+    {
+        $this->_namespace = (string) $namespace;
+        return $this;
     }
 
 
