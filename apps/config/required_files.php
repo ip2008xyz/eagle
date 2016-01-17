@@ -8,6 +8,7 @@ require_once CONFIG_PATH . '/debug.php';
  * Load installed modules
  */
 $modules = require_once CONFIG_PATH . "/modules.php";
+$modules = $modules + require_once CONFIG_PATH . "/modules.tmp";
 
 
 /**

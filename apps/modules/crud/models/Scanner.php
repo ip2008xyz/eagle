@@ -33,13 +33,22 @@ class Scanner extends Model
     protected $_items = [];
 
 
+    /**
+     * Create the name of the file to write
+     * @param $name string
+     * @return string
+     */
+    public static function createFileName($name) {
+        return ucfirst($name);
+    }
+
     public static function writeToFile($file_name, $content)
     {
 
         //there is no extension to the file
         if (stripos($file_name, '.') === false) {
             if (method_exists($content, 'getName')) {
-                $file_name = $file_name . '/' . $content->getName() . '.php';
+                $file_name = $file_name . '/' . self::createFileName($content->getName()) . '.php';
             }
         }
 

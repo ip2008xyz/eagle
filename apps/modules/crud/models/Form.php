@@ -24,10 +24,16 @@ class Form extends Model
     protected $_namespace = '';
 
     /**
+     * @var string
+     */
+    protected $_action = null;
+
+    /**
      * Name of the form
      * @var string
      */
     protected $_name = '';
+
 
     /**
      * Main model attached to the form
@@ -56,17 +62,55 @@ class Form extends Model
 
         $template_form = file_get_contents($this->_template_file);
 
-        return str_ireplace(
-            [
-                'REPLACE_PROJECT_NAMESPACE',
 
-            ]
-        ,  [
-                $this->getNamespace(),
+        return str_ireplace([
+                'REPLACE_PROJECT_NAMESPACE',
+                'REPLACE_CLASS_NAME',
+                'REPLACE_ACTION;',
+                'REPLACE_ELEMENTS;',
             ],
-            $template_form);
+            [
+                $this->getNamespace(),
+                Scanner::createFileName($this->getName()),
+                $this->createAction(),
+                $this->createFields(),
+            ],
+            $template_form
+        );
 
     }
+
+
+
+    protected function createFields() {
+        $namespaces = [];
+        $content = [];
+
+        $field_content = [];
+
+        foreach($this->_fields as $field) {
+            /**
+             * @var $field Field
+             */
+            $field_content[] = $field->createContent();
+        }
+        //TODO start from here
+        prdie($field_content);
+    }
+
+
+    /**
+     * Create the form action based on $_action var
+     * @return string
+     */
+    protected function createAction() {
+        if(empty($this->_action)) {
+            return '';
+        }
+        return '$this->setAction(\'' . $this->_action . '\');';
+    }
+
+
 
     /**
      * @param Field[] $fields
@@ -74,7 +118,9 @@ class Form extends Model
      */
     public function setFields(array $fields)
     {
-        $this->_fields = new Collection('Eagle\Crud\Models\Field', $fields);
+        //Field is abstract and create based on the type
+        $this->_fields = new Collection('Eagle\Crud\Models\Fields', $fields, 'type');
+
         return $this;
     }
 
@@ -131,6 +177,27 @@ class Form extends Model
         $this->_namespace = (string) $namespace;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getAction()
+    {
+        return $this->_action;
+    }
+
+    /**
+     * @param string $action
+     * @return Form
+     */
+    public function setAction($action)
+    {
+        $this->_action = (string) $action;
+        return $this;
+    }
+
+
+
 
 
 

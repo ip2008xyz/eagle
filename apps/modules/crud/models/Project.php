@@ -62,7 +62,9 @@ class Project extends Model
     {
 
         foreach ($this->_forms as $form) {
-
+            /**
+             * @var $form Form
+             */
             Scanner::writeToFile($this->_export_path . '/forms', $form);
 
         }

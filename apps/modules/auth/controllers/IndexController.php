@@ -14,7 +14,7 @@ class IndexController extends ControllerBase
      */
     public function initialize() {
 
-        $this->view->title = "Page title";
+        $this->view->title = "Auth";
 
 
         // Add some local CSS resources
@@ -30,6 +30,16 @@ class IndexController extends ControllerBase
         $this->assets
             ->addJs('assets/js/jquery.js')
             ->addJs('assets/js/bootstrap.js');
+
+        $this->view->setLayoutsDir($this->config->template->front->layouts);
+
+        $this->assets->addCss('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css');
+
+        $this->view->setLayout('index');
+
+        $this->view->setMainView($this->config->template->front->main);
+
+        $this->view->setLayout('index');
     }
 
 

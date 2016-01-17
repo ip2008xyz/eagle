@@ -139,7 +139,8 @@ class Modules
         //phalcon migration --action=run --config="\config\migration.php" --migrations="\apps\auth\migrations --version=1.0.2"
         //phalcon migration --action=generate --config="\apps\config\migration.php" --migrations="\apps\modules\menus\migrations" --table=menus
 
-        $modules_installed = include APPS_PATH . '/config/modules.php';
+
+        $modules_installed = require CONFIG_PATH . "/modules.tmp";
 
 
         foreach ($modules as $module_key) {
@@ -253,11 +254,11 @@ class Modules
 
             uasort($modules_installed, array('Eagle\Core\Models\Modules','sortByPriority'));
 
-            copy(APPS_PATH . '/config/modules.php', $this->_cache_dir . '/' .date('Ymd_His_') . substr(microtime(true), -4). ".{$type}.modules.log");
+            copy(CONFIG_PATH . "/modules.tmp", $this->_cache_dir . '/' .date('Ymd_His_') . substr(microtime(true), -4). ".{$type}.modules.log");
 
-            $this->writeArray($modules_installed, APPS_PATH . '/config/modules.php');
+            $this->writeArray($modules_installed, CONFIG_PATH . "/modules.tmp");
 
-            Debug::info("Overwrite modules.php");
+            Debug::info("Overwrite modules.tmp");
 
         }
     }

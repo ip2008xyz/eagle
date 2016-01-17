@@ -9,7 +9,8 @@ return [
 
     'fields' => [
 
-        'name' => [
+        [
+            'name' => 'Name',
             'type' => 'input',
             'validators' => [
                 'min' => 3,
@@ -22,8 +23,8 @@ return [
             ],
         ],
 
-        'type' => [
-
+        [
+            'name' => 'Type',
             'type' => 'select',
 
             'validators' => [

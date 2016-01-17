@@ -7,7 +7,8 @@ use Eagle\Core\Controllers\ControllerBase as Controller;
 class ControllerBase extends Controller
 {
 
-    public function initialize() {
+    public function initialize()
+    {
 
         $this->view->title = $this->config->application->app_name;
 
@@ -20,7 +21,6 @@ class ControllerBase extends Controller
         $this->view->setMainView($this->config->template->front->main);
 
         $this->view->setLayout('index');
-
 
 
     }

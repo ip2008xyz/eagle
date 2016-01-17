@@ -3,31 +3,46 @@
 namespace Eagle\Core\Models;
 
 use Countable;
+use Eagle\Crud\Models\Scanner;
 use Iterator;
 
 
-class Collection
+class Collection implements Iterator
 {
 
 
-    public function __construct($objectName, $items = [])
+    public function __construct($objectName, $items = [], $type = '')
     {
 
         $this->items = [];
 
-        foreach($items as $key => $item) {
+        foreach ($items as $key => $item) {
 
-            if($item instanceof  $objectName) {
+            $tmpObjectName = $objectName;
+
+            if (!empty($type)) {
+                if (is_object($item)) {
+                    $tmpObjectName = $objectName . '\\' . Scanner::createFileName($item->$type);
+                } else {
+                    $tmpObjectName = $objectName . '\\' . Scanner::createFileName($item[$type]);
+                }
+
+            }
+            if(!class_exists($tmpObjectName)) {
+                throw new \Exception("Class {$tmpObjectName} does not exist");
+            }
+
+            if ($item instanceof $tmpObjectName) {
 
                 $this->items[] = $items;
 
-            } elseif(is_array($item)) {
+            } elseif (is_array($item)) {
 
-                $this->items[] = new $objectName($item);
+                $this->items[] = new $tmpObjectName($item);
 
             } else {
                 $item = [$key => $item];
-                $this->items[] = new $objectName($item);
+                $this->items[] = new $tmpObjectName($item);
             }
         }
 
@@ -37,23 +52,28 @@ class Collection
     }
 
 
-    function rewind() {
+    function rewind()
+    {
         $this->position = 0;
     }
 
-    function current() {
+    function current()
+    {
         return $this->items[$this->position];
     }
 
-    function key() {
+    function key()
+    {
         return $this->position;
     }
 
-    function next() {
+    function next()
+    {
         ++$this->position;
     }
 
-    function valid() {
+    function valid()
+    {
         return isset($this->items[$this->position]);
     }
 

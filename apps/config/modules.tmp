@@ -1,0 +1,49 @@
+<?php 
+return [ 
+    'auth' => [
+        'priority' => 100,
+        'name' => 'Auth',
+        'description' => 'The auth module',
+        'namespace' => '\Eagle\Auth',
+        'group' => 'Auth',
+        'version' => 0.1,
+    ],
+    'menus' => [
+        'priority' => 101,
+        'name' => 'Menus',
+        'description' => 'The menus module',
+        'namespace' => '\Eagle\Menus',
+        'group' => 'Menus',
+        'version' => 0.1,
+        'require' => [
+            '0' => 'auth',
+        ],
+    ],
+    'routes' => [
+        'priority' => 102,
+        'name' => 'Routes',
+        'description' => 'The routing module',
+        'namespace' => '\Eagle\Routes',
+        'group' => 'Routes',
+        'version' => 0.1,
+    ],
+    'themes' => [
+        'priority' => 103,
+        'name' => 'Themes',
+        'description' => 'The theming modules',
+        'namespace' => '\Eagle\Themes',
+        'group' => 'Themes',
+        'version' => 0.1,
+        'require' => [
+
+        ],
+    ],
+    'crud' => [
+        'priority' => 103,
+        'name' => 'CRUD',
+        'description' => 'CRUD generator',
+        'namespace' => '\Eagle\Crud',
+        'group' => 'CRUD',
+        'version' => 0.1,
+    ],
+]; 
