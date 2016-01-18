@@ -3,7 +3,7 @@ namespace Eagle\Crud\Models;
 
 use Eagle\Core\Models\Model;
 
-class Filter extends Model
+abstract class Filter extends Model
 {
 
     /**
@@ -15,6 +15,30 @@ class Filter extends Model
      * @var string
      */
     protected $_value = '';
+
+
+    /**
+     * @var string
+     */
+    protected $_namespace = '';
+
+    /**
+     * create the element
+     * @return mixed
+     */
+    abstract function create();
+
+
+    public function createContent() {
+
+
+        return [
+            'content' => $this->create(),
+            'namespace' => $this->getNamespace(),
+        ];
+
+    }
+
 
     /**
      * @return string
@@ -50,6 +74,14 @@ class Filter extends Model
     {
         $this->_value = (string) $value;
         return $this;
+    }
+
+    /**
+     * Return the current field namespace
+     * @return string
+     */
+    public function getNamespace() {
+        return $this->_namespace;
     }
 
 

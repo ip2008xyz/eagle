@@ -23,6 +23,7 @@ class Login extends Form
             //->setDefault('username')
             ->addFilter('trim')
             ->addFilter('striptags')
+
             ->addValidators(array(
             new StringLength(array(
                 'max' => 50,

@@ -93,12 +93,15 @@ class Form extends Model
             $field_content = $field->createContent();
 
             $namespaces[$field_content['namespace']] = $field_content['namespace'];
+
             $content[] = $field_content['content'];
         }
+        //prdie($namespaces, $content);
+
+        return implode("\n", $content);
 
 
 
-        prdie($namespaces, $content);
     }
 
 

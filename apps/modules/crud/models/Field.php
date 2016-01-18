@@ -45,17 +45,21 @@ abstract class Field extends Model
     abstract function create();
 
 
-
-    protected function addElement() {
+    protected function addElement()
+    {
         return '$this->add($' . $this->getFieldName() . ');';
     }
 
-    public function createFilters() {
+    public function createFilters()
+    {
 
         $namespaces = [];
         $content = [];
+        if (empty($this->_filters)) {
+            return '';
+        }
 
-        foreach($this->_filters as $filter) {
+        foreach ($this->_filters as $filter) {
             /**
              * @var $field Filter
              */
@@ -64,13 +68,34 @@ abstract class Field extends Model
             $namespaces[$field_content['namespace']] = $field_content['namespace'];
             $content[] = $field_content['content'];
         }
+        return '$' . $this->getFieldName() . '->addFilter(' . implode(")\n->addFilter(", $content) . ');';
 
-        foreach($this->_filters as $filter) {
-
-        }
-        prdie($this);
     }
-    public function createContent() {
+
+    public function createValidators()
+    {
+
+        $namespaces = [];
+        $content = [];
+        if (empty($this->_validators)) {
+            return '';
+        }
+
+        foreach ($this->_validators as $validator) {
+            /**
+             * @var $field Validator
+             */
+            $field_content = $validator->createContent();
+
+            $namespaces[$field_content['namespace']] = $field_content['namespace'];
+            $content[] = $field_content['content'];
+        }
+        return '$' . $this->getFieldName() . '->addValidator(' . implode(")\n->addValidator(", $content) . ');';
+
+    }
+
+    public function createContent()
+    {
 
         return [
             'content' => implode("\n", [
@@ -78,7 +103,7 @@ abstract class Field extends Model
                 $this->createFilters(),
                 $this->createValidators(),
                 $this->addElement(),
-                ]),
+            ]),
             'namespace' => $this->getNamespace(),
         ];
 
@@ -100,7 +125,8 @@ abstract class Field extends Model
     public function setFilters(array $filters)
     {
 
-        $this->_filters = new Collection('Eagle\Crud\Models\Filter', $filters);
+
+        $this->_filters = new Collection('Eagle\Crud\Models\Filters', $filters, 'name');
 
         return $this;
     }
@@ -119,7 +145,7 @@ abstract class Field extends Model
      */
     public function setType($type)
     {
-        $this->_type = (string) $type;
+        $this->_type = (string)$type;
         return $this;
     }
 
@@ -137,7 +163,7 @@ abstract class Field extends Model
      */
     public function setValidators(array $validators)
     {
-        $this->_validators = new Collection('Eagle\Crud\Models\Validator', $validators);;
+        $this->_validators = new Collection('Eagle\Crud\Models\Validators', $validators, 'name');
         return $this;
     }
 
@@ -155,7 +181,7 @@ abstract class Field extends Model
      */
     public function setName($name)
     {
-        $this->_name = (string) $name;
+        $this->_name = (string)$name;
         return $this;
     }
 
@@ -164,7 +190,8 @@ abstract class Field extends Model
      * Return the var name of the field
      * @return string
      */
-    public function getFieldName() {
+    public function getFieldName()
+    {
         return trim(strtolower($this->_name));
     }
 
@@ -172,7 +199,8 @@ abstract class Field extends Model
      * Return the current field namespace
      * @return string
      */
-    public function getNamespace() {
+    public function getNamespace()
+    {
         return $this->_namespace;
     }
 
@@ -190,14 +218,9 @@ abstract class Field extends Model
      */
     public function setLabel($label)
     {
-        $this->_label = (string) $label;
+        $this->_label = (string)$label;
         return $this;
     }
-
-
-
-
-
 
 
 }

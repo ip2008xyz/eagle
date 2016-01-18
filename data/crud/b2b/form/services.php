@@ -19,7 +19,7 @@ return [
             ],
 
             'filters' => [
-                'trim',
+                'trim', 'striptags',
             ],
         ],
 

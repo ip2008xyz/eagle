@@ -3,7 +3,7 @@ namespace Eagle\Crud\Models;
 
 use Eagle\Core\Models\Model;
 
-class Validator extends Model
+abstract class Validator extends Model
 {
 
     /**
@@ -17,11 +17,34 @@ class Validator extends Model
     protected $_value = '';
 
     /**
+     * @var string
+     */
+    protected $_namespace = '';
+
+    /**
      * @return string
      */
     public function getName()
     {
         return $this->_name;
+    }
+
+
+    /**
+     * create the element
+     * @return mixed
+     */
+    abstract function create();
+
+
+    public function createContent() {
+
+
+        return [
+            'content' => $this->create(),
+            'namespace' => $this->getNamespace(),
+        ];
+
     }
 
     /**
@@ -50,6 +73,14 @@ class Validator extends Model
     {
         $this->_value = (string) $value;
         return $this;
+    }
+
+    /**
+     * Return the current field namespace
+     * @return string
+     */
+    public function getNamespace() {
+        return $this->_namespace;
     }
 
 

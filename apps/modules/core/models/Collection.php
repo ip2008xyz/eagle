@@ -14,6 +14,7 @@ class Collection implements Iterator
     public function __construct($objectName, $items = [], $type = '')
     {
 
+        dump($items, $type);
         $this->items = [];
 
         foreach ($items as $key => $item) {
@@ -23,8 +24,12 @@ class Collection implements Iterator
             if (!empty($type)) {
                 if (is_object($item)) {
                     $tmpObjectName = $objectName . '\\' . Scanner::createFileName($item->$type);
-                } else {
+                } elseif (is_array($item)) {
                     $tmpObjectName = $objectName . '\\' . Scanner::createFileName($item[$type]);
+                } elseif (is_numeric($key)) {
+                    $tmpObjectName = $objectName . '\\' . Scanner::createFileName($item);
+                } else {
+                    $tmpObjectName = $objectName . '\\' . Scanner::createFileName($key);
                 }
 
             }
