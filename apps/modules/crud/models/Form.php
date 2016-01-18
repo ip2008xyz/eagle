@@ -86,16 +86,19 @@ class Form extends Model
         $namespaces = [];
         $content = [];
 
-        $field_content = [];
-
         foreach($this->_fields as $field) {
             /**
              * @var $field Field
              */
-            $field_content[] = $field->createContent();
+            $field_content = $field->createContent();
+
+            $namespaces[$field_content['namespace']] = $field_content['namespace'];
+            $content[] = $field_content['content'];
         }
-        //TODO start from here
-        prdie($field_content);
+
+
+
+        prdie($namespaces, $content);
     }
 
 

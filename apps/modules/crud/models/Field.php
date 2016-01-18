@@ -22,6 +22,12 @@ abstract class Field extends Model
      */
     protected $_name = '';
 
+
+    /**
+     * @var string
+     */
+    protected $_label = '';
+
     /**
      * @var Validator[]
      */
@@ -40,10 +46,39 @@ abstract class Field extends Model
 
 
 
+    protected function addElement() {
+        return '$this->add($' . $this->getFieldName() . ');';
+    }
+
+    public function createFilters() {
+
+        $namespaces = [];
+        $content = [];
+
+        foreach($this->_filters as $filter) {
+            /**
+             * @var $field Filter
+             */
+            $field_content = $filter->createContent();
+
+            $namespaces[$field_content['namespace']] = $field_content['namespace'];
+            $content[] = $field_content['content'];
+        }
+
+        foreach($this->_filters as $filter) {
+
+        }
+        prdie($this);
+    }
     public function createContent() {
 
         return [
-            'content' => $this->create(),
+            'content' => implode("\n", [
+                $this->create(),
+                $this->createFilters(),
+                $this->createValidators(),
+                $this->addElement(),
+                ]),
             'namespace' => $this->getNamespace(),
         ];
 
@@ -140,6 +175,25 @@ abstract class Field extends Model
     public function getNamespace() {
         return $this->_namespace;
     }
+
+    /**
+     * @return string
+     */
+    public function getLabel()
+    {
+        return $this->_label;
+    }
+
+    /**
+     * @param string $label
+     * @return Field
+     */
+    public function setLabel($label)
+    {
+        $this->_label = (string) $label;
+        return $this;
+    }
+
 
 
 
