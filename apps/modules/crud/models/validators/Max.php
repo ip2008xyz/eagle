@@ -4,14 +4,18 @@ namespace Eagle\Crud\Models\Validators;
 
 use Eagle\Crud\Models\Validator;
 
-class Max extends Validator {
 
-    protected $_namespace = 'Phalcon\Forms\Element\Text';
+class Max extends Validator
+{
 
-    public function create() {
+    protected $_namespace = 'Phalcon\Validation\Validator\Between';
 
-        return " new Between([
-                    'minimum' => " . $this->getValue()
-        . "   ])";
+    public function create()
+    {
+
+        return 'new Between([' . "\n"
+        . "   'minimum' => " . $this->getValue() . "\n"
+        . '])';
+
     }
 }

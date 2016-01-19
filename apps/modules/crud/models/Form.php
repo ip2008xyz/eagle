@@ -24,6 +24,11 @@ class Form extends Model
     protected $_namespace = '';
 
     /**
+     * @var array
+     */
+    protected $_namespaces = [];
+
+    /**
      * @var string
      */
     protected $_action = null;
@@ -68,12 +73,16 @@ class Form extends Model
                 'REPLACE_CLASS_NAME',
                 'REPLACE_ACTION;',
                 'REPLACE_ELEMENTS;',
+                'REPLACE_USE_NAMESPACES;',
             ],
             [
                 $this->getNamespace(),
                 Scanner::createFileName($this->getName()),
                 $this->createAction(),
-                $this->createFields(),
+                Scanner::prettyPrint($this->createFields(), 4),
+                $this->createNamespaces(),
+
+
             ],
             $template_form
         );
@@ -81,9 +90,10 @@ class Form extends Model
     }
 
 
-
+    protected function createNamespaces() {
+        return 'use ' . implode(";\nuse ", $this->_namespaces) . ';';
+    }
     protected function createFields() {
-        $namespaces = [];
         $content = [];
 
         foreach($this->_fields as $field) {
@@ -92,13 +102,16 @@ class Form extends Model
              */
             $field_content = $field->createContent();
 
-            $namespaces[$field_content['namespace']] = $field_content['namespace'];
+            if(isset($field_content['namespace'])) {
+
+                $this->_namespaces[$field_content['namespace']] = $field_content['namespace'];
+            }
+
 
             $content[] = $field_content['content'];
         }
-        //prdie($namespaces, $content);
 
-        return implode("\n", $content);
+        return $content;
 
 
 

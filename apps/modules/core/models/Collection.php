@@ -14,7 +14,6 @@ class Collection implements Iterator
     public function __construct($objectName, $items = [], $type = '')
     {
 
-        dump($items, $type);
         $this->items = [];
 
         foreach ($items as $key => $item) {
@@ -33,7 +32,7 @@ class Collection implements Iterator
                 }
 
             }
-            if(!class_exists($tmpObjectName)) {
+            if (!class_exists($tmpObjectName)) {
                 throw new \Exception("Class {$tmpObjectName} does not exist");
             }
 

@@ -42,6 +42,27 @@ class Scanner extends Model
         return ucfirst($name);
     }
 
+
+
+    public static function prettyFluentMethod($content, $variable, $method) {
+
+        $glue = ")\n->{$method}(";
+
+        return '$' . $variable . '->' . $method . '(' . implode($glue, $content) . ');';
+
+    }
+    public static function prettyPrint($data, $limit = 0) {
+        foreach($data as $k => $v) {
+
+            if(is_array($v)) {
+                $data[$k] = self::prettyPrint($v, $limit + 4);
+            }
+
+            $data[$k] = str_pad($data[$k], $limit, ' ', STR_PAD_LEFT);
+        }
+        return implode("\n", $data);
+    }
+
     public static function writeToFile($file_name, $content)
     {
 

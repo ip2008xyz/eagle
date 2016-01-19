@@ -18,6 +18,11 @@ abstract class Field extends Model
     protected $_namespace = '';
 
     /**
+     * @var array
+     */
+    protected $_namespaces = [];
+
+    /**
      * @var string
      */
     protected $_name = '';
@@ -53,7 +58,6 @@ abstract class Field extends Model
     public function createFilters()
     {
 
-        $namespaces = [];
         $content = [];
         if (empty($this->_filters)) {
             return '';
@@ -65,17 +69,21 @@ abstract class Field extends Model
              */
             $field_content = $filter->createContent();
 
-            $namespaces[$field_content['namespace']] = $field_content['namespace'];
+            if(isset($field_content['namespace'])) {
+                $this->_namespaces[$field_content['namespace']] = $field_content['namespace'];
+            }
+
             $content[] = $field_content['content'];
         }
-        return '$' . $this->getFieldName() . '->addFilter(' . implode(")\n->addFilter(", $content) . ');';
+
+        return Scanner::prettyFluentMethod($content, $this->getFieldName(), 'addFilter');
 
     }
+
 
     public function createValidators()
     {
 
-        $namespaces = [];
         $content = [];
         if (empty($this->_validators)) {
             return '';
@@ -87,10 +95,15 @@ abstract class Field extends Model
              */
             $field_content = $validator->createContent();
 
-            $namespaces[$field_content['namespace']] = $field_content['namespace'];
+            if(isset($field_content['namespace'])) {
+                $this->_namespaces[$field_content['namespace']] = $field_content['namespace'];
+            }
+
             $content[] = $field_content['content'];
         }
-        return '$' . $this->getFieldName() . '->addValidator(' . implode(")\n->addValidator(", $content) . ');';
+
+        return Scanner::prettyFluentMethod($content, $this->getFieldName(), 'addValidator');
+
 
     }
 
@@ -98,13 +111,13 @@ abstract class Field extends Model
     {
 
         return [
-            'content' => implode("\n", [
+            'content' => [
                 $this->create(),
                 $this->createFilters(),
                 $this->createValidators(),
                 $this->addElement(),
-            ]),
-            'namespace' => $this->getNamespace(),
+            ],
+            'namespace' => $this->_namespaces,
         ];
 
     }

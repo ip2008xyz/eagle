@@ -6,12 +6,12 @@ use Eagle\Crud\Models\Validator;
 
 class Required extends Validator {
 
-    protected $_namespace = 'Phalcon\Forms\Element\Text';
+    protected $_namespace = null;
 
     public function create() {
 
-        return " new Between([
-                    'minimum' => " . $this->getValue()
-        . "   ])";
+        return 'new Between([' . "\n"
+        . "   'minimum' => " . $this->getValue() . "\n"
+        . '])';
     }
 }

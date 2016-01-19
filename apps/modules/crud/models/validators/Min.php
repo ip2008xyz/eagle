@@ -10,8 +10,8 @@ class Min extends Validator {
 
     public function create() {
 
-        return " new Between([
-                    'minimum' => " . $this->getValue()
-             . "   ])";
+        return 'new Between([' . "\n"
+        . "   'minimum' => " . $this->getValue() . "\n"
+        . '])';
     }
 }
