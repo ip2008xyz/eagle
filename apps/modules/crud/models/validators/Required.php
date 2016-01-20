@@ -6,12 +6,10 @@ use Eagle\Crud\Models\Validator;
 
 class Required extends Validator {
 
-    protected $_namespace = null;
+    protected $_namespace = 'Phalcon\Validation\Validator\PresenceOf';
 
     public function create() {
 
-        return 'new Between([' . "\n"
-        . "   'minimum' => " . $this->getValue() . "\n"
-        . '])';
+        return 'new PresenceOf()';
     }
 }

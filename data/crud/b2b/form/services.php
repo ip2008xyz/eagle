@@ -38,6 +38,11 @@ return [
             'value' => [
                 'emtpy'
             ]
+        ],
+        [
+            'name' => 'Save',
+            'type' => 'submit',
+
         ]
     ]
 

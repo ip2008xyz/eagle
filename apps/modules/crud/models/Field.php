@@ -69,9 +69,7 @@ abstract class Field extends Model
              */
             $field_content = $filter->createContent();
 
-            if(isset($field_content['namespace'])) {
-                $this->_namespaces[$field_content['namespace']] = $field_content['namespace'];
-            }
+            $this->addNamespace($field_content['namespace']);
 
             $content[] = $field_content['content'];
         }
@@ -79,7 +77,6 @@ abstract class Field extends Model
         return Scanner::prettyFluentMethod($content, $this->getFieldName(), 'addFilter');
 
     }
-
 
     public function createValidators()
     {
@@ -95,9 +92,7 @@ abstract class Field extends Model
              */
             $field_content = $validator->createContent();
 
-            if(isset($field_content['namespace'])) {
-                $this->_namespaces[$field_content['namespace']] = $field_content['namespace'];
-            }
+            $this->addNamespace($field_content['namespace']);
 
             $content[] = $field_content['content'];
         }
@@ -107,17 +102,32 @@ abstract class Field extends Model
 
     }
 
+
+    public function addNamespace($namespace) {
+        if(isset($namespace)) {
+
+            if(is_array($namespace)) {
+                $this->_namespaces += $namespace;
+            } else {
+                $this->_namespaces[$namespace] = $namespace;
+            }
+
+        }
+        return $this->_namespaces;
+    }
+
     public function createContent()
     {
-        $create = $this->create(),
+
+
         return [
             'content' => [
-                $create,
+                $this->create(),
                 $this->createFilters(),
                 $this->createValidators(),
                 $this->addElement(),
             ],
-            'namespace' => $this->_namespaces,
+            'namespace' => $this->addNamespace($this->_namespace),
         ];
 
     }

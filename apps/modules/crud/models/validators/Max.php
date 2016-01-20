@@ -14,7 +14,7 @@ class Max extends Validator
     {
 
         return 'new Between([' . "\n"
-        . "   'minimum' => " . $this->getValue() . "\n"
+        . "   'max' => " . $this->getValue() . "\n"
         . '])';
 
     }
