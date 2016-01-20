@@ -97,20 +97,28 @@ class Form extends Model
         $content = [];
 
         foreach($this->_fields as $field) {
+
             /**
              * @var $field Field
              */
             $field_content = $field->createContent();
 
+            dump($field_content['namespace']);
+
             if(isset($field_content['namespace'])) {
 
-                $this->_namespaces[$field_content['namespace']] = $field_content['namespace'];
+                if(is_array($field_content['namespace'])) {
+                    $this->_namespaces += $field_content['namespace'];
+                } else {
+                    $this->_namespaces[$field_content['namespace']] = $field_content['namespace'];
+                }
+
             }
 
 
             $content[] = $field_content['content'];
         }
-
+        dump($this->_namespaces);
         return $content;
 
 

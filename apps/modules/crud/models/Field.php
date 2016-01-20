@@ -109,10 +109,10 @@ abstract class Field extends Model
 
     public function createContent()
     {
-
+        $create = $this->create(),
         return [
             'content' => [
-                $this->create(),
+                $create,
                 $this->createFilters(),
                 $this->createValidators(),
                 $this->addElement(),
