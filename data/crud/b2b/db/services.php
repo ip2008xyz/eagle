@@ -1,10 +1,11 @@
 <?php
 
 return [
+    'objectName' => 'Eagle\Crud\Models\Model',
+
     'table' => 'services',
-
+    'name'  => 'Services',
     'singular' => 'service',
-
     'columns' => [
         'id' => 'int',
         'name' => 'varchar',

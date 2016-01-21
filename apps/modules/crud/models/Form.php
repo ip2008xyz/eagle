@@ -93,6 +93,7 @@ class Form extends Model
     protected function createNamespaces() {
         return 'use ' . implode(";\nuse ", $this->_namespaces) . ';';
     }
+
     protected function createFields() {
         $content = [];
 
@@ -118,7 +119,7 @@ class Form extends Model
 
             $content[] = $field_content['content'];
         }
-        dump($this->_namespaces);
+
         return $content;
 
 

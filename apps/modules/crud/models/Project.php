@@ -35,6 +35,11 @@ class Project extends Model
      */
     protected $_forms = [];
 
+    /**
+     * DB is actually the models
+     * @var Model[]
+     */
+    protected $_db = [];
 
     /**
      * List of folders / instances possible by the module
@@ -42,8 +47,9 @@ class Project extends Model
      */
     protected $_instances = [
 
-        'form',
-        //  'db',
+        'forms',
+        'db',
+
         //  'flow'
 
     ];
@@ -139,7 +145,10 @@ class Project extends Model
                 'path' => $this->getCrudPath() . '/' . $folder,
                 'namespace' => $this->_name,
             ]);
-
+            $variable_name = '_' . $folder;
+            if(!isset($this->$variable_name)) {
+                throw new \Exception("Invalid property {$folder}");
+            }
             $this->_forms = $scan_object->load();
 
         }
