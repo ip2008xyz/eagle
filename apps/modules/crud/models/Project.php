@@ -36,21 +36,28 @@ class Project extends Model
     protected $_forms = [];
 
     /**
-     * DB is actually the models
+     * Models, there are also used to build the db
      * @var Model[]
      */
-    protected $_db = [];
+    protected $_mvc_models = [];
+
+    /**
+     * @var Controller[]
+     */
+    protected $_controllers = [];
 
     /**
      * List of folders / instances possible by the module
+     * All the values must have a protected $_name property defined
+     * Also for each there must be added a method to create the actuall content protected create createValueFiles()
+     * Call createValueFiles() into create() method
      * @var array
      */
     protected $_instances = [
 
         'forms',
-        'db',
-
-        //  'flow'
+        'mvc_models',
+        'controllers'
 
     ];
 
@@ -59,18 +66,31 @@ class Project extends Model
     {
         $this->createStructureAndDefaultFiles();
 
-        $this->creatFormFiles();
+        $this->creatFormsFiles();
+        $this->createMvcModelsFiles();
+        $this->createControllersFiles();
 
 
     }
 
-    public function creatFormFiles()
+    public function createControllersFiles() {
+        foreach ($this->_controllers as $controller) {
+            Scanner::writeToFile($this->_export_path . '/controllers', $controller);
+
+        }
+
+    }
+
+    public function createMvcModelsFiles() {
+        foreach ($this->_mvc_models as $model) {
+            Scanner::writeToFile($this->_export_path . '/models', $model);
+        }
+    }
+
+    public function creatFormsFiles()
     {
 
         foreach ($this->_forms as $form) {
-            /**
-             * @var $form Form
-             */
             Scanner::writeToFile($this->_export_path . '/forms', $form);
 
         }
@@ -139,17 +159,20 @@ class Project extends Model
         }
 
 
-        //TODO - fix for all the pages
+
         foreach ($this->_instances as $folder) {
+
             $scan_object = new Scanner([
                 'path' => $this->getCrudPath() . '/' . $folder,
                 'namespace' => $this->_name,
             ]);
             $variable_name = '_' . $folder;
+
             if(!isset($this->$variable_name)) {
                 throw new \Exception("Invalid property {$folder}");
             }
-            $this->_forms = $scan_object->load();
+            $this->$variable_name = $scan_object->load();
+
 
         }
 

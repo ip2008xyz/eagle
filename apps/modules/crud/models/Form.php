@@ -193,7 +193,7 @@ class Form extends Model
      */
     public function getNamespace()
     {
-        return ucfirst($this->_namespace);
+        return Scanner::createFileName($this->_namespace);
     }
 
     /**

@@ -2,19 +2,19 @@
 
 
 return [
-    'project' => 'b2b',
-    'pages' => [
+    'name' => 'Services',
+    'objectName' => 'Eagle\Crud\Models\Controller',
+
+    'actions' => [
         [
-            'type' => 'add',
-            'url' => 'services/add',
-            'access' => 'b2b_services_add',
-            'form' => [
-                'form' => 'services',
-            ],
+            'type' => 'create',
+            'form' => 'services',
+            'model' => 'services',
+            'name'  => 'create',
         ],
 
-        [
-            'type' => 'view',
+       /* [
+            'type' => 'read',
             'url' => 'services',
             'access' => 'b2b_services_view',
             'view' => [
@@ -24,7 +24,7 @@ return [
                     'name' => 'Name',
                 ]
             ],
-        ],
+        ],*/
 
     ],
 ];

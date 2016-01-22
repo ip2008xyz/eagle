@@ -6,6 +6,7 @@ return [
     'table' => 'services',
     'name'  => 'Services',
     'singular' => 'service',
+
     'columns' => [
         'id' => 'int',
         'name' => 'varchar',

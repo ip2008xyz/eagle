@@ -9,32 +9,32 @@ use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Element\Submit;
 
 
-class Services extends Form
-{
+class Services extends Form {
 
     public function initialize()
     {
+        
 
 
         $name = new Text("Name");
-        $name->addFilter('trim')
-            ->addFilter('striptags');
-        $name->addValidator(new Between([
-            'minimum' => 3
-        ]))
-            ->addValidator(new Between([
-                'max' => 200
-            ]))
-            ->addValidator(new PresenceOf());
-        $this->add($name);
-        $type = new Select("Type");
-
-        $type->addValidator(new PresenceOf());
-        $this->add($type);
-        $save = new Submit("Save");
-
-
-        $this->add($save);
+$name->addFilter('trim')
+->addFilter('striptags');
+$name->addValidator(new Between([
+   'minimum' => 3
+]))
+->addValidator(new Between([
+   'max' => 200
+]))
+->addValidator(new PresenceOf());
+$this->add($name);
+$type = new Select("Type");
+        
+$type->addValidator(new PresenceOf());
+$this->add($type);
+$save = new Submit("Save");
+        
+        
+$this->add($save);
     }
 
 

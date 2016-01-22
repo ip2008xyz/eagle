@@ -42,6 +42,10 @@ class Scanner extends Model
         return ucfirst($name);
     }
 
+    public static function createVariableName($name) {
+        return trim(strtolower($name));
+    }
+
 
 
     public static function prettyFluentMethod($content, $variable, $method) {
