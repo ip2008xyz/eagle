@@ -14,8 +14,9 @@ class Form extends Model
 
     public function __construct($data)
     {
-        $this->_template_file =\Phalcon\DI::getDefault()->get('config')->crud->templates . '/form.php';
+        $this->_template_file = \Phalcon\DI::getDefault()->get('config')->crud->templates . '/form.php';
         parent::__construct($data);
+
     }
 
     /**
@@ -90,8 +91,24 @@ class Form extends Model
     }
 
 
+    protected function addNamespace($namespace) {
+        if(isset($namespace)) {
+
+            if(is_array($namespace)) {
+                $this->_namespaces += $namespace;
+            } else {
+                $this->_namespaces[$namespace] = $namespace;
+            }
+
+        }
+        return $this->_namespaces;
+    }
+
     protected function createNamespaces() {
-        return 'use ' . implode(";\nuse ", $this->_namespaces) . ';';
+        if(count($this->_namespaces) > 0) {
+            return 'use ' . implode(";\nuse ", $this->_namespaces) . ';';
+        }
+        return '';
     }
 
     protected function createFields() {
@@ -106,17 +123,7 @@ class Form extends Model
 
             //dump($field_content['namespace']);
 
-            if(isset($field_content['namespace'])) {
-
-                if(is_array($field_content['namespace'])) {
-                    $this->_namespaces += $field_content['namespace'];
-                } else {
-                    $this->_namespaces[$field_content['namespace']] = $field_content['namespace'];
-                }
-
-            }
-
-
+            $this->addNamespace($field_content['namespace']);
             $content[] = $field_content['content'];
         }
 

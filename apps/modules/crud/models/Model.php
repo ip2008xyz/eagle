@@ -45,6 +45,32 @@ class Model extends CoreModel
      */
     protected $_singular = '';
 
+    /**
+     * @var array
+     */
+    protected $_namespaces = [];
+
+    protected function addNamespace($namespace) {
+        if(isset($namespace)) {
+
+            if(is_array($namespace)) {
+                $this->_namespaces += $namespace;
+            } else {
+                $this->_namespaces[$namespace] = $namespace;
+            }
+
+        }
+        return $this->_namespaces;
+    }
+
+    protected function createNamespaces() {
+        if(count($this->_namespaces) > 0) {
+            return 'use ' . implode(";\nuse ", $this->_namespaces) . ';';
+        }
+        return '';
+
+    }
+
     public function createContent() {
 
         if(!is_file($this->_template_file)) {
@@ -58,14 +84,14 @@ class Model extends CoreModel
             'REPLACE_CLASS_NAME',
             'REPLACE_SOURCE',
             'REPLACE_TABLE',
-            //'REPLACE_USE_NAMESPACES;',
+            'REPLACE_USE_NAMESPACES;',
         ],
             [
                 $this->getNamespace(),
                 Scanner::createFileName($this->getName()),
                 $this->getSource(),
                 $this->getTable(),
-                //$this->createNamespaces(),
+                $this->createNamespaces(),
 
 
             ],

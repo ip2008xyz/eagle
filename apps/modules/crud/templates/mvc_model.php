@@ -1,5 +1,5 @@
 <?php
-namespace Eagle\REPLACE_PROJECT_NAMESPACE\Models;
+namespace REPLACE_PROJECT_NAMESPACE\Models;
 
 use Eagle\Core\Models\MvcModel;
 REPLACE_USE_NAMESPACES;

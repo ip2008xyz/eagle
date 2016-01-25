@@ -26,6 +26,8 @@ $di->set('acl', function () {
 });
 
 
+
+
 $di->getShared('dispatcher')->getEventsManager()->attach("dispatch:beforeExecuteRoute", function ($event, $dispatcher) use ($di) {
 
     $moduleName = $dispatcher->getModuleName();
@@ -43,6 +45,7 @@ $di->getShared('dispatcher')->getEventsManager()->attach("dispatch:beforeExecute
 
     if ($di->get('acl')->isAllowed($moduleName, $controllerName, $actionName) == Acl::ALLOW) {
         //we are good, do nothing here
+
         return true;
 
     } else {

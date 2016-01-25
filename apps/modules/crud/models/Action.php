@@ -2,9 +2,9 @@
 namespace Eagle\Crud\Models;
 
 use Eagle\Core\Models\Collection;
-use Eagle\Core\Models\Model;
+use Eagle\Core\Models\Model as CoreModel;
 
-abstract class Action extends Model
+abstract class Action extends CoreModel
 {
 
 
@@ -28,13 +28,11 @@ abstract class Action extends Model
     abstract function create();
 
 
+    public function addNamespace($namespace)
+    {
+        if (isset($namespace)) {
 
-
-
-    public function addNamespace($namespace) {
-        if(isset($namespace)) {
-
-            if(is_array($namespace)) {
+            if (is_array($namespace)) {
                 $this->_namespaces += $namespace;
             } else {
                 $this->_namespaces[$namespace] = $namespace;
@@ -49,9 +47,7 @@ abstract class Action extends Model
 
 
         return [
-            'content' => [
-                $this->create(),
-            ],
+            'content' => $this->create(),
             'namespace' => $this->addNamespace($this->_namespace),
         ];
 
@@ -110,8 +106,6 @@ abstract class Action extends Model
         $this->_name = (string) $name;
         return $this;
     }
-
-
 
 
 }

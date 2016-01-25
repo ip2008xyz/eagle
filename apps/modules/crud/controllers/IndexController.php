@@ -18,7 +18,9 @@ class IndexController extends ControllerBase
             $this->view->crud_project = new Project([
                 'path' => $this->config->crud->dir,
                 'name' => 'b2b',
+                'namespace' => 'Eagle\B2B',
             ]);
+
 
 
         } catch (\Exception $e) {
@@ -32,6 +34,7 @@ class IndexController extends ControllerBase
         $project = new Project([
                 'path' => $this->config->crud->dir,
                 'name' => $project_name,
+                'namespace' => 'Eagle\B2B',
             ]);
 
         $project->load()->create();

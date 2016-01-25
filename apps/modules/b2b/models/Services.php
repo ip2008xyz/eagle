@@ -1,8 +1,8 @@
 <?php
-namespace Eagle\B2b\Models;
+namespace Eagle\B2B\Models;
 
 use Eagle\Core\Models\MvcModel;
-REPLACE_USE_NAMESPACES;
+
 
 class Services extends MvcModel
 {

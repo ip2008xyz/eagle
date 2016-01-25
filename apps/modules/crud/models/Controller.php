@@ -1,11 +1,10 @@
 <?php
 namespace Eagle\Crud\Models;
 
-
 use Eagle\Core\Models\Collection;
+use Eagle\Core\Models\Model as CoreModel;
 
-
-class Controller extends Model
+class Controller extends CoreModel
 {
 
 
@@ -14,7 +13,10 @@ class Controller extends Model
     public function __construct($data)
     {
         $this->_template_file = \Phalcon\DI::getDefault()->get('config')->crud->templates . '/controller.php';
+
+
         parent::__construct($data);
+
     }
 
     /**
@@ -37,6 +39,19 @@ class Controller extends Model
     protected $_namespaces = [];
 
 
+    protected function createInitialize()
+    {
+
+    }
+
+    protected function createNamespaces()
+    {
+        if(count($this->_namespaces) > 0) {
+            return 'use ' . implode(";\nuse ", $this->_namespaces) . ';';
+        }
+        return '';
+    }
+
     public function createContent()
     {
 
@@ -51,7 +66,6 @@ class Controller extends Model
             'REPLACE_PROJECT_NAMESPACE',
             'REPLACE_CLASS_NAME',
             'const REPLACE_ACTIONS = 0;',
-
             'REPLACE_INITIALIZE;',
             'REPLACE_USE_NAMESPACES;',
         ],
@@ -89,16 +103,16 @@ class Controller extends Model
 
             $content[] = $field_content['content'];
         }
-
-        return $content;
+        return implode("\n\n", $content);
 
 
     }
 
-    public function addNamespace($namespace) {
-        if(isset($namespace)) {
+    public function addNamespace($namespace)
+    {
+        if (isset($namespace)) {
 
-            if(is_array($namespace)) {
+            if (is_array($namespace)) {
                 $this->_namespaces += $namespace;
             } else {
                 $this->_namespaces[$namespace] = $namespace;

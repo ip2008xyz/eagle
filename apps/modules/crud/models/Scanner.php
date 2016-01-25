@@ -67,13 +67,19 @@ class Scanner extends Model
         return implode("\n", $data);
     }
 
-    public static function writeToFile($file_name, $content)
+    public static function writeToFile($file_name, $content, $replace_pattern = '')
     {
 
         //there is no extension to the file
         if (stripos($file_name, '.') === false) {
             if (method_exists($content, 'getName')) {
-                $file_name = $file_name . '/' . self::createFileName($content->getName()) . '.php';
+                if(empty($replace_pattern)) {
+                    $file_name = $file_name . '/' . self::createFileName($content->getName()) . '.php';
+                } else {
+                    $file_name = $file_name . '/' . sprintf($replace_pattern, self::createFileName($content->getName()));
+
+                }
+
             }
         }
 

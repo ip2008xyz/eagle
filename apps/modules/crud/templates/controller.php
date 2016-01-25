@@ -1,6 +1,6 @@
 <?php
 
-namespace Eagle\REPLACE_PROJECT_NAMESPACE\Controllers;
+namespace REPLACE_PROJECT_NAMESPACE\Controllers;
 
 use Eagle\Core\Services\Message;
 REPLACE_USE_NAMESPACES;

@@ -20,9 +20,9 @@ class Create extends Action {
         {
             try {
 
-                $model = new ' . Scanner::createVariableName($this->_model) . '();
+                $model = new ' . Scanner::createFileName($this->_model) . '();
 
-                $form = new ' . Scanner::createVariableName($this->_form) . '($model);
+                $form = new ' . Scanner::createFileName($this->_form) . '($model);
 
                 if ($this->request->isPost() && $form->isValid($this->request->getPost())) {
 

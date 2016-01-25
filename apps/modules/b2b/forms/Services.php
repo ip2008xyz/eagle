@@ -1,5 +1,5 @@
 <?php
-namespace Eagle\B2b\Forms;
+namespace Eagle\B2B\Forms;
 
 use Eagle\Core\Forms\Form;
 use Phalcon\Validation\Validator\Between;
