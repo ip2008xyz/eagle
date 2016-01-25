@@ -29,6 +29,11 @@ abstract class Field extends Model
 
 
     /**
+     * @var array
+     */
+    protected $_options = [];
+
+    /**
      * @var string
      */
     protected $_label = '';
@@ -242,6 +247,24 @@ abstract class Field extends Model
     public function setLabel($label)
     {
         $this->_label = (string)$label;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getOptions()
+    {
+        return $this->_options;
+    }
+
+    /**
+     * @param array $options
+     * @return Field
+     */
+    public function setOptions($options)
+    {
+        $this->_options = $options;
         return $this;
     }
 

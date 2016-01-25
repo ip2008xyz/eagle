@@ -1,9 +1,10 @@
 <?php
 
-namespace Eagle\B2b\Controllers;
+namespace Eagle\B2B\Controllers;
 
 use Eagle\Core\Services\Message;
-
+use Eagle\B2B\Models\Services;
+use Eagle\B2B\Forms\Service;
 
 
 class ServicesController extends ControllerBase
@@ -11,7 +12,7 @@ class ServicesController extends ControllerBase
 
 
     public function initialize() {
-        
+
 
     }
 
@@ -22,7 +23,7 @@ class ServicesController extends ControllerBase
 
                 $model = new Services();
 
-                $form = new Services($model);
+                $form = new Service($model);
 
                 if ($this->request->isPost() && $form->isValid($this->request->getPost())) {
 

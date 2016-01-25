@@ -1,6 +1,6 @@
 <?php
 
-namespace Eagle\B2b\Controllers;
+namespace Eagle\B2B\Controllers;
 
 use Eagle\Core\Controllers\ControllerBase as BaseCoreController;
 

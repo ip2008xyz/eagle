@@ -4,8 +4,8 @@ return [
 
     'objectName' => 'Eagle\Crud\Models\Form',
 
-    'name' => 'services',
-    'model' => 'Services',
+    'name' => 'service',
+    'model' => 'Service',
 
     'fields' => [
 
@@ -31,7 +31,7 @@ return [
                 'required' => true,
             ],
 
-            'values' => [
+            'options' => [
                 0 => 'Standard',
                 1 => 'Non-Standard',
             ],
