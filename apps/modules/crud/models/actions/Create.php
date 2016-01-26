@@ -15,14 +15,17 @@ class Create extends Action {
 
     public function create() {
 
+        $model = \Phalcon\DI::getDefault()->get('project')->getModel($this->_model);
+        $form = \Phalcon\DI::getDefault()->get('project')->getForm($this->_form);
+
 
         return 'public function ' . Scanner::createVariableName($this->_name) . 'Action()
         {
             try {
 
-                $model = new ' . Scanner::createFileName($this->_model) . '();
+                $model = new ' . $model->getDisplayName() . '();
 
-                $form = new ' . Scanner::createFileName($this->_form) . '($model);
+                $form = new ' . $form->getDisplayName() . '($model);
 
                 if ($this->request->isPost() && $form->isValid($this->request->getPost())) {
 

@@ -8,7 +8,7 @@ return [
     'actions' => [
         [
             'type' => 'create',
-            'form' => 'services',
+            'form' => 'service',
             'model' => 'services',
             'name'  => 'create',
         ],

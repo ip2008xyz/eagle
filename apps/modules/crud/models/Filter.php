@@ -1,26 +1,15 @@
 <?php
 namespace Eagle\Crud\Models;
 
-use Eagle\Core\Models\Model;
 
-abstract class Filter extends Model
+abstract class Filter extends Crud
 {
-
-    /**
-     * @var string
-     */
-    protected $_name = '';
 
     /**
      * @var string
      */
     protected $_value = '';
 
-
-    /**
-     * @var string
-     */
-    protected $_namespace = '';
 
     /**
      * create the element
@@ -43,24 +32,6 @@ abstract class Filter extends Model
     /**
      * @return string
      */
-    public function getName()
-    {
-        return $this->_name;
-    }
-
-    /**
-     * @param string $name
-     * @return Filter
-     */
-    public function setName($name)
-    {
-        $this->_name = (string) $name;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
     public function getValue()
     {
         return $this->_value;
@@ -75,14 +46,5 @@ abstract class Filter extends Model
         $this->_value = (string) $value;
         return $this;
     }
-
-    /**
-     * Return the current field namespace
-     * @return string
-     */
-    public function getNamespace() {
-        return $this->_namespace;
-    }
-
 
 }

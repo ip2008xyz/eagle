@@ -4,7 +4,7 @@ return [
     'objectName' => 'Eagle\Crud\Models\Model',
 
     'table' => 'services',
-    'name'  => 'Services',
+    'name'  =>  'services',
     'singular' => 'service',
 
     'columns' => [

@@ -1,32 +1,16 @@
 <?php
 namespace Eagle\Crud\Models;
 
-use Eagle\Core\Models\Model;
+
 use Eagle\Core\Models\Collection;
 
-abstract class Field extends Model
+abstract class Field extends Crud
 {
 
     /**
      * @var string
      */
     protected $_type = '';
-
-    /**
-     * @var string
-     */
-    protected $_namespace = '';
-
-    /**
-     * @var array
-     */
-    protected $_namespaces = [];
-
-    /**
-     * @var string
-     */
-    protected $_name = '';
-
 
     /**
      * @var array
@@ -74,6 +58,7 @@ abstract class Field extends Model
              */
             $field_content = $filter->createContent();
 
+
             $this->addNamespace($field_content['namespace']);
 
             $content[] = $field_content['content'];
@@ -97,6 +82,7 @@ abstract class Field extends Model
              */
             $field_content = $validator->createContent();
 
+
             $this->addNamespace($field_content['namespace']);
 
             $content[] = $field_content['content'];
@@ -107,19 +93,6 @@ abstract class Field extends Model
 
     }
 
-
-    public function addNamespace($namespace) {
-        if(isset($namespace)) {
-
-            if(is_array($namespace)) {
-                $this->_namespaces += $namespace;
-            } else {
-                $this->_namespaces[$namespace] = $namespace;
-            }
-
-        }
-        return $this->_namespaces;
-    }
 
     public function createContent()
     {
@@ -194,25 +167,6 @@ abstract class Field extends Model
         $this->_validators = new Collection('Eagle\Crud\Models\Validators', $validators, 'name');
         return $this;
     }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->_name;
-    }
-
-    /**
-     * @param string $name
-     * @return Field
-     */
-    public function setName($name)
-    {
-        $this->_name = (string)$name;
-        return $this;
-    }
-
 
     /**
      * Return the var name of the field

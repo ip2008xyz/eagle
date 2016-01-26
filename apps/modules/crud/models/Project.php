@@ -3,9 +3,8 @@ namespace Eagle\Crud\Models;
 
 
 use Eagle\Content\Forms\Form;
-use Eagle\Core\Models\Model;
 
-class Project extends Model
+class Project extends Crud
 {
 
     /**
@@ -13,25 +12,17 @@ class Project extends Model
      */
     protected $_path = '';
 
-    /**
-     * @var string
-     */
-    protected $_name = '';
 
     /**
      * @var string
      */
-    protected $_crud_path = '';
+    protected $_crudPath = '';
+
 
     /**
      * @var string
      */
-    protected $_namespace = '';
-
-    /**
-     * @var string
-     */
-    protected $_export_path = '';
+    protected $_exportPath = '';
 
 
     /**
@@ -43,7 +34,7 @@ class Project extends Model
      * Models, there are also used to build the db
      * @var Model[]
      */
-    protected $_mvc_models = [];
+    protected $_models = [];
 
     /**
      * @var Controller[]
@@ -60,7 +51,7 @@ class Project extends Model
     protected $_instances = [
 
         'forms',
-        'mvc_models',
+        'models',
         'controllers'
 
     ];
@@ -82,7 +73,7 @@ class Project extends Model
     public function createControllersFiles()
     {
         foreach ($this->_controllers as $controller) {
-            Scanner::writeToFile($this->_export_path . '/controllers', $controller, '%sController.php');
+            Scanner::writeToFile($this->_exportPath . '/controllers', $controller, '%sController.php');
 
         }
 
@@ -90,8 +81,8 @@ class Project extends Model
 
     public function createMvcModelsFiles()
     {
-        foreach ($this->_mvc_models as $model) {
-            Scanner::writeToFile($this->_export_path . '/models', $model);
+        foreach ($this->_models as $model) {
+            Scanner::writeToFile($this->_exportPath . '/models', $model);
         }
     }
 
@@ -99,7 +90,7 @@ class Project extends Model
     {
 
         foreach ($this->_forms as $form) {
-            Scanner::writeToFile($this->_export_path . '/forms', $form);
+            Scanner::writeToFile($this->_exportPath . '/forms', $form);
 
         }
     }
@@ -110,12 +101,12 @@ class Project extends Model
 
         //folders to create
         $folders = [
-            $this->_export_path,
-            $this->_export_path . '/config',
-            $this->_export_path . '/controllers',
-            $this->_export_path . '/models',
-            $this->_export_path . '/forms',
-            $this->_export_path . '/views',
+            $this->_exportPath,
+            $this->_exportPath . '/config',
+            $this->_exportPath . '/controllers',
+            $this->_exportPath . '/models',
+            $this->_exportPath . '/forms',
+            $this->_exportPath . '/views',
         ];
 
         foreach ($folders as $folder) {
@@ -130,7 +121,7 @@ class Project extends Model
 
         //files to create
         $files = [
-            $this->_export_path . '/config/info.php' => "<?php
+            $this->_exportPath . '/config/info.php' => "<?php
                     return [
                         'key' => '{$this->getName()}',
                         'priority' => 200,
@@ -141,13 +132,13 @@ class Project extends Model
                         'version' => 0.1,
                     ];",
             //this is the Module.php file //TODO make it preatty as a method
-            $this->_export_path . '/Module.php' => str_ireplace(
+            $this->_exportPath . '/Module.php' => str_ireplace(
                 'REPLACE_PROJECT_NAMESPACE',
                 $this->_namespace,
                 file_get_contents(\Phalcon\DI::getDefault()->get('config')->crud->templates . '/Module.php')
             ),
             //this is the ControllerBase.php file //TODO make it preatty as a method
-            $this->_export_path . '/controllers/ControllerBase.php' => str_ireplace(
+            $this->_exportPath . '/controllers/ControllerBase.php' => str_ireplace(
                 'REPLACE_PROJECT_NAMESPACE',
                 $this->_namespace,
                 file_get_contents(\Phalcon\DI::getDefault()->get('config')->crud->templates . '/ControllerBase.php')
@@ -202,12 +193,36 @@ class Project extends Model
 
     }
 
+    public function getModel($name) {
+        foreach($this->_models as $model) {
+            /**
+             * @var $model \Eagle\Crud\Models\Model
+             */
+            if($model->getName() === $name) {
+                return $model;
+            }
+        }
+        return null;
+    }
+
+    public function getForm($name) {
+        foreach($this->_forms as $form) {
+            /**
+             * @var $model \Eagle\Crud\Models\Form
+             */
+            if($form->getName() === $name) {
+                return $form;
+            }
+        }
+        return null;
+    }
+
     /**
      * @return string
      */
     public function getExportPath()
     {
-        return $this->_export_path;
+        return $this->_exportPath;
     }
 
     /**
@@ -216,7 +231,7 @@ class Project extends Model
      */
     public function setExportPath($export_path)
     {
-        $this->_export_path = (string) $export_path;
+        $this->_exportPath = (string) $export_path;
         return $this;
     }
 
@@ -226,7 +241,7 @@ class Project extends Model
      */
     public function getCrudPath()
     {
-        return $this->_crud_path;
+        return $this->_crudPath;
     }
 
     /**
@@ -236,28 +251,10 @@ class Project extends Model
     protected function setCrudPath($project_path)
     {
 
-        $this->_crud_path = (string) $project_path;
+        $this->_crudPath = (string) $project_path;
         return $this;
     }
 
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->_name;
-    }
-
-    /**
-     * @param string $name
-     * @return Project
-     */
-    public function setName($name)
-    {
-        $this->_name = (string) $name;
-        return $this;
-    }
 
     /**
      * @return string
@@ -274,24 +271,6 @@ class Project extends Model
     public function setPath($path)
     {
         $this->_path = (string) $path;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getNamespace()
-    {
-        return $this->_namespace;
-    }
-
-    /**
-     * @param string $namespace
-     * @return Project
-     */
-    public function setNamespace($namespace)
-    {
-        $this->_namespace = (string) $namespace;
         return $this;
     }
 

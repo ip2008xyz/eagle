@@ -3,6 +3,7 @@ namespace Eagle\Crud\Models;
 
 
 use Eagle\Core\Models\Model;
+use Eagle\Core\Services\Message;
 
 class Scanner extends Model
 {
@@ -39,6 +40,10 @@ class Scanner extends Model
      * @return string
      */
     public static function createFileName($name) {
+        return ucfirst($name);
+    }
+
+    public static function createDisplayName($name) {
         return ucfirst($name);
     }
 
@@ -91,6 +96,10 @@ class Scanner extends Model
             throw new \Exception("Could not wrilte file {$file_name}");
         }
         chmod($file_name, 0775);
+
+        Message::status("Create file " . $file_name);
+
+        return $file_name;
     }
 
     /**

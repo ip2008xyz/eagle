@@ -1,10 +1,8 @@
 <?php
 namespace Eagle\Crud\Models;
 
-use Eagle\Core\Models\Collection;
-use Eagle\Core\Models\Model as CoreModel;
 
-abstract class Action extends CoreModel
+abstract class Action extends Crud
 {
 
 
@@ -18,29 +16,8 @@ abstract class Action extends CoreModel
      */
     protected $_model = '';
 
-    /**
-     * @var string
-     */
-    protected $_name = '';
-
-    protected $_namespaces = [];
 
     abstract function create();
-
-
-    public function addNamespace($namespace)
-    {
-        if (isset($namespace)) {
-
-            if (is_array($namespace)) {
-                $this->_namespaces += $namespace;
-            } else {
-                $this->_namespaces[$namespace] = $namespace;
-            }
-
-        }
-        return $this->_namespaces;
-    }
 
     public function createContent()
     {
@@ -88,24 +65,5 @@ abstract class Action extends CoreModel
         $this->_model = (string) $model;
         return $this;
     }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->_name;
-    }
-
-    /**
-     * @param string $name
-     * @return Action
-     */
-    public function setName($name)
-    {
-        $this->_name = (string) $name;
-        return $this;
-    }
-
 
 }

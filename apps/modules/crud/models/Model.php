@@ -2,19 +2,13 @@
 namespace Eagle\Crud\Models;
 
 
-use Eagle\Core\Models\Collection;
-use Eagle\Core\Models\Model as CoreModel;
-
-
-class Model extends CoreModel
+class Model extends Crud
 {
 
 
-    protected $_template_file = '';
-
     public function __construct($data)
     {
-        $this->_template_file =\Phalcon\DI::getDefault()->get('config')->crud->templates . '/mvc_model.php';
+        $data['templateFile'] = 'model';
         parent::__construct($data);
     }
 
@@ -31,37 +25,9 @@ class Model extends CoreModel
     /**
      * @var string
      */
-    protected $_namespace = '';
-
-    /**
-     * Name of the model
-     * @var string
-     */
-    protected $_name = '';
-
-
-    /**
-     * @var string
-     */
     protected $_singular = '';
 
-    /**
-     * @var array
-     */
-    protected $_namespaces = [];
 
-    protected function addNamespace($namespace) {
-        if(isset($namespace)) {
-
-            if(is_array($namespace)) {
-                $this->_namespaces += $namespace;
-            } else {
-                $this->_namespaces[$namespace] = $namespace;
-            }
-
-        }
-        return $this->_namespaces;
-    }
 
     protected function createNamespaces() {
         if(count($this->_namespaces) > 0) {
@@ -73,11 +39,7 @@ class Model extends CoreModel
 
     public function createContent() {
 
-        if(!is_file($this->_template_file)) {
-            throw new \Exception("Template file {$this->_template_file} missing");
-        }
-
-        $template_form = file_get_contents($this->_template_file);
+        $template_form = file_get_contents($this->_templateFile);
 
         return str_ireplace([
             'REPLACE_PROJECT_NAMESPACE',
@@ -88,7 +50,7 @@ class Model extends CoreModel
         ],
             [
                 $this->getNamespace(),
-                Scanner::createFileName($this->getName()),
+                $this->getDisplayName(),
                 $this->getSource(),
                 $this->getTable(),
                 $this->createNamespaces(),
@@ -98,45 +60,9 @@ class Model extends CoreModel
             $template_form
         );
 
-        prdie($this, $template_form);
-
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->_name;
-    }
 
-    /**
-     * @param string $name
-     * @return Model
-     */
-    public function setName($name)
-    {
-        $this->_name = (string) $name;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getNamespace()
-    {
-        return Scanner::createFileName($this->_namespace);
-    }
-
-    /**
-     * @param string $namespace
-     * @return Model
-     */
-    public function setNamespace($namespace)
-    {
-        $this->_namespace = (string) $namespace;
-        return $this;
-    }
 
     /**
      * @return string
@@ -191,6 +117,8 @@ class Model extends CoreModel
         $this->_table = (string) $table;
         return $this;
     }
+
+
 
 
 

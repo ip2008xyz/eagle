@@ -5,7 +5,7 @@ return [
     'objectName' => 'Eagle\Crud\Models\Form',
 
     'name' => 'service',
-    'model' => 'Service',
+    'model' => 'service',
 
     'fields' => [
 
