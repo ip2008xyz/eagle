@@ -1,5 +1,5 @@
 <?php
-namespace REPLACE_PROJECT_NAMESPACE\Forms;
+namespace REPLACE_PROJECT_NAMESPACE;
 
 use Eagle\Core\Forms\Form;
 REPLACE_USE_NAMESPACES;

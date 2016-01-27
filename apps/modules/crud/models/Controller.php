@@ -15,21 +15,33 @@ class Controller extends Crud
 
     }
 
+
+
+    protected $_subNamespace = 'Controllers';
+
     /**
      * @var Action[]
      */
     protected $_actions = [];
 
-
+    /**
+     * @var View[]
+     */
+    protected $_views = [];
 
     protected function createInitialize()
     {
 
     }
 
+    public function writeToFile($exportPath) {
+        Scanner::writeToFile($exportPath . '/controllers', $this, '%sController.php');
+        prdie($this->_actions);
+    }
+
     protected function createNamespaces()
     {
-        if(count($this->_namespaces) > 0) {
+        if (count($this->_namespaces) > 0) {
             return 'use ' . implode(";\nuse ", $this->_namespaces) . ';';
         }
         return '';
@@ -38,9 +50,7 @@ class Controller extends Crud
     public function createContent()
     {
 
-
         $template_form = file_get_contents($this->getTemplateFile());
-
 
         return str_ireplace([
             'REPLACE_PROJECT_NAMESPACE',
@@ -107,5 +117,28 @@ class Controller extends Crud
 
         return $this;
     }
+
+    /**
+     * @return View[]
+     */
+    public function getViews()
+    {
+        return $this->_views;
+    }
+
+    /**
+     * @param View[] $views
+     * @return Controller
+     */
+    public function setViews(array $views)
+    {
+
+        $this->_views = new Collection('Eagle\Crud\Models\Views', $views, 'type');
+        return $this;
+    }
+
+
+
+
 
 }

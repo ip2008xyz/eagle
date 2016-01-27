@@ -12,6 +12,9 @@ use Eagle\Core\Models\Model;
 class Crud extends Model
 {
 
+
+    protected $_subNamespace = '';
+
     /**
      * @var string
      */
@@ -39,9 +42,21 @@ class Crud extends Model
     protected $_namespaces = [];
 
 
+    /**
+     * @var string
+     */
+    protected $_type = '';
+
+
     public function __construct($data)
     {
         parent::__construct($data);
+    }
+
+
+    public function writeToFile($exportPath) {
+        throw new \Exception("There must be an implementation of this method in the extendend class");
+        //Scanner::writeToFile($this->_exportPath . '/controllers', $this, '%sController.php');
     }
 
     protected function addNamespace($namespace)
@@ -59,6 +74,8 @@ class Crud extends Model
 
         return $this->_namespaces;
     }
+
+
 
     /**
      * @return string
@@ -83,7 +100,7 @@ class Crud extends Model
      */
     public function getNamespace()
     {
-        return Scanner::createFileName($this->_namespace);
+        return Scanner::createDisplayName($this->_namespace);
     }
 
     /**
@@ -92,7 +109,12 @@ class Crud extends Model
      */
     public function setNamespace($namespace)
     {
-        $this->_namespace = (string) $namespace;
+        if(empty($this->_subNamespace)) {
+            $this->_namespace = (string) $namespace;
+        } else {
+            $this->_namespace = (string) $namespace . '\\' . $this->_subNamespace;
+        }
+
         return $this;
     }
 
@@ -157,6 +179,30 @@ class Crud extends Model
 
         return $this;
     }
+
+
+    public function getClassName() {
+        return $this->_namespace . '\\' . $this->getDisplayName();
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->_type;
+    }
+
+    /**
+     * @param string $type
+     * @return Crud
+     */
+    public function setType($type)
+    {
+        $this->_type = (string) $type;
+        return $this;
+    }
+
 
 
 }

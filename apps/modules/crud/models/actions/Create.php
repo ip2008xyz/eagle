@@ -18,6 +18,9 @@ class Create extends Action {
         $model = \Phalcon\DI::getDefault()->get('project')->getModel($this->_model);
         $form = \Phalcon\DI::getDefault()->get('project')->getForm($this->_form);
 
+        $this->addNamespace($model->getClassName());
+
+        $this->addNamespace($form->getClassName());
 
         return 'public function ' . Scanner::createVariableName($this->_name) . 'Action()
         {

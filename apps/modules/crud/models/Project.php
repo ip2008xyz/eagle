@@ -73,8 +73,7 @@ class Project extends Crud
     public function createControllersFiles()
     {
         foreach ($this->_controllers as $controller) {
-            Scanner::writeToFile($this->_exportPath . '/controllers', $controller, '%sController.php');
-
+            $controller->writeToFile($this->_exportPath);
         }
 
     }
@@ -82,7 +81,8 @@ class Project extends Crud
     public function createMvcModelsFiles()
     {
         foreach ($this->_models as $model) {
-            Scanner::writeToFile($this->_exportPath . '/models', $model);
+            $model->writeToFile($this->_exportPath);
+            //Scanner::writeToFile($this->_exportPath . '/models', $model);
         }
     }
 
@@ -90,7 +90,8 @@ class Project extends Crud
     {
 
         foreach ($this->_forms as $form) {
-            Scanner::writeToFile($this->_exportPath . '/forms', $form);
+            $form->writeToFile($this->_exportPath);
+            //Scanner::writeToFile($this->_exportPath . '/forms', $form);
 
         }
     }

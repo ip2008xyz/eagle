@@ -12,6 +12,8 @@ class Model extends Crud
         parent::__construct($data);
     }
 
+    protected $_subNamespace = 'Models';
+
     /**
      * @var string
      */
@@ -28,6 +30,9 @@ class Model extends Crud
     protected $_singular = '';
 
 
+    public function writeToFile($exportPath) {
+        Scanner::writeToFile($exportPath . '/models', $this);
+    }
 
     protected function createNamespaces() {
         if(count($this->_namespaces) > 0) {

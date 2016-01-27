@@ -20,15 +20,17 @@ class Collection implements Iterator
 
             $tmpObjectName = $objectName;
 
+
             if (!empty($type)) {
+
                 if (is_object($item)) {
-                    $tmpObjectName = $objectName . '\\' . Scanner::createFileName($item->$type);
+                    $tmpObjectName = $objectName . '\\' . Scanner::createDisplayName($item->$type);
                 } elseif (is_array($item)) {
-                    $tmpObjectName = $objectName . '\\' . Scanner::createFileName($item[$type]);
+                    $tmpObjectName = $objectName . '\\' . Scanner::createDisplayName($item[$type]);
                 } elseif (is_numeric($key)) {
-                    $tmpObjectName = $objectName . '\\' . Scanner::createFileName($item);
+                    $tmpObjectName = $objectName . '\\' . Scanner::createDisplayName($item);
                 } else {
-                    $tmpObjectName = $objectName . '\\' . Scanner::createFileName($key);
+                    $tmpObjectName = $objectName . '\\' . Scanner::createDisplayName($key);
                 }
 
             }

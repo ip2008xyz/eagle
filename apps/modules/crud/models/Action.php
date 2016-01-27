@@ -16,8 +16,13 @@ abstract class Action extends Crud
      */
     protected $_model = '';
 
+    /**
+     * @var string
+     */
+    protected $_view = '';
 
     abstract function create();
+
 
     public function createContent()
     {
@@ -65,5 +70,25 @@ abstract class Action extends Crud
         $this->_model = (string) $model;
         return $this;
     }
+
+
+    /**
+     * @return string
+     */
+    public function getView()
+    {
+        return $this->_view;
+    }
+
+    /**
+     * @param string $view
+     * @return Controller
+     */
+    public function setView($view)
+    {
+        $this->_view = (string) $view;
+        return $this;
+    }
+
 
 }

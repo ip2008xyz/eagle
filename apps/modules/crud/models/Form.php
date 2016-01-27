@@ -16,6 +16,7 @@ class Form extends Crud
 
     }
 
+    protected $_subNamespace = 'Forms';
 
     /**
      * @var string
@@ -33,13 +34,12 @@ class Form extends Crud
      */
     public $_fields = null;
 
-    /**
-     * @return Field[]
-     */
-    public function getFields()
-    {
-        return $this->_fields;
+
+    public function writeToFile($exportPath) {
+        Scanner::writeToFile($exportPath . '/forms', $this);
     }
+
+
 
     public function createContent()
     {
@@ -158,6 +158,15 @@ class Form extends Crud
         $this->_action = (string) $action;
         return $this;
     }
+
+    /**
+     * @return Field[]
+     */
+    public function getFields()
+    {
+        return $this->_fields;
+    }
+
 
 
 }
